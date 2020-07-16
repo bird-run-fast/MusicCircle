@@ -16,7 +16,9 @@ music circle
 音楽が好きな人全般。地方の楽器演奏や作曲活動をしている方向け。
 
 ### 主な利用シーン
-<...>
+-オンラインセッションの募集
+-作曲の募集、依頼
+-音楽知識の情報共有
 
 ## 設計書
 https://docs.google.com/spreadsheets/d/1ux4FKULRwAjt3wuyI4GiKH53JwJhb3d8wVerG1KxG4E/edit?usp=sharing
