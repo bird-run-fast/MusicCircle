@@ -10,6 +10,27 @@
   </head>
 
   <body>
+    <!-- ヘッダー部分 -->
+    <header>
+      <nav class="nav-items">
+        <div class="logo"><%= image_tag "logo.png", :size => "200x100"%></div>
+        <ul class="nav navbar-nav navbar-right">
+            <% if enduser_signed_in? %>
+              <li class="name">こんにちは<%= current_enduser.name%>さん！</li>
+              <li class="name">チャット(未読0件)</li>
+              <li><%= link_to "募集一覧", public_posts_path,class:"btn btn-info py-0" %></li>
+              <li><%= link_to "マイページ", public_endusers_path(current_enduser.id), class:"btn btn-info py-0"%></li>
+              <li><%= link_to "ログアウト", destroy_enduser_session_path, method: :delete , class:"btn btn-info py-0 log" %></li>
+            <% else %>
+              <li><%= link_to "募集一覧", public_posts_path,class:"btn btn-info py-0" %></li>
+              <li><%= link_to "新規登録", new_enduser_registration_path , class:"btn btn-info py-0" %></li>
+              <li><%= link_to "ログイン", new_enduser_session_path , class:"btn btn-info py-0 log" %></li>
+            <% end %>
+        </ul>
+      </nav>
+    </header>
+    <!-- ヘッダー部分ここまで -->
+
     <%= yield %>
   </body>
 </html>
