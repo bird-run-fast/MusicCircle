@@ -1,0 +1,78 @@
+<!-- about部分 -->
+<div class="nav-sub">
+  <div class="about-us">
+    Muic Ciecle へようこそ！<br>
+    気軽に音楽仲間を見つけて交流できるサイトです！<br>
+    まずは気軽に「気になる」ボタンを押して交流してみましょう！
+  </div>
+</div>
+<!-- about部分ここまで -->
+<!-- 新規投稿ボタン -->
+<div class="post-create-btn">
+  <%= link_to "新規募集投稿", new_public_post_path, class:"btn btn-primary py-0"%>
+</div>
+<!-- 新規投稿ボタンここまで -->
+
+<div class="container">
+  <div class="row">
+    <!-- メインコンテンツ部分 -->
+    <div class="col-xs-9">
+
+      <!-- 募集一覧表示の部分(メイン部分) -->
+      <div class="post-main-container">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr class="d-flex">
+              <th class="col-xs-8"><h1>募集の一覧</h1></th>
+              <th class="col-xs-2"></th>
+              <th class="col-xs-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |post|%>
+            <tr class="d-flex">
+              <td class="col-xs-7">
+                <div class="post-box">
+                  <div class="post-title">
+                    <%= link_to public_post_path(post.id) do %>
+                      <h3><%= post.title %></h3>
+                    <% end %>
+                  </div>
+                  <div class="post-valid"><h5>状態:<%= post.is_valid%></h5></div>
+                  <div class="post-tag">タグ一覧を表示</div>
+                  <div class="post-body"><h5>-   <%= post.body.truncate(40, spearator:"。")%></h5></div>
+                </div>
+              </td>
+              <td class="col-xs-2" align="center">☆</td>
+              <td class="col-xs-3" align="center">
+                <%= attachment_image_tag(current_enduser, :image, size:"100x100", fallback: "no_image.jpg") %>
+                <h4><%= current_enduser.name %></h4>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- 募集の一覧表示の部分ここまで-->
+    </div>
+    <!-- メインコンテンツ部分 -->
+
+    <!-- サイドバー部分 -->
+    <%= render 'sidebar' %>
+    <!-- サイドバー部分ここまで -->
+  </div>
+</div>
+
+<!-- tableのひな型-->
+<!-- <table class="table">
+  <thead class="thead-dark">
+    <tr class="d-flex">
+      <th class="col-xs-8"><h1>人気の募集</h1></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="d-flex">
+      <td></td>
+    </tr>
+  </tbody>
+</table> -->
