@@ -1,2 +1,41 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <h3 align="center">全体掲示板に募集をする</h3>
+      <br><br>
+
+      <!-- エラーメッセージ表示部分 -->
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      <!-- エラーメッセージ表示部分ここまで -->
+
+      <!-- 新規募集用のフォーム部分 -->
+      <%= form_with(model: @post, url:public_posts_path, method: :post) do |f| %>
+        <div class="col form">
+          <table class="table">
+            <tr>
+              <th><%= f.label :タグ%></th>
+              <th>tag機能実装時にコードを記述</th>
+            </tr>
+            <tr>
+              <th><%= f.label :タイトル%></th>
+              <th><%= f.text_field :title, autofocus: true, class: "title input-mysize-md", placeholder: "タイトル" %></th>
+            </tr>
+            <tr>
+              <th><%= f.label :メッセージ%></th>
+              <th><%= f.text_area :body, autofocus: true, class: "body input-mysize-message",placeholder: "メッセージ" %></th>
+            </tr>
+          </table>
+          <br>
+          <div class="post-new-btn" align="center">
+            <%= f.submit "この内容で募集する！", class: "btn btn-info"%>
+          </div>
+        </div>
+      <% end %>
+      <!-- 新規募集用のフォーム部分ここまで -->
+
+    </div>
+  </div>
+</div>

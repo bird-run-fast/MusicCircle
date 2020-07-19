@@ -1,2 +1,40 @@
-<h1>Public::Endusers#show</h1>
-<p>Find me in app/views/public/endusers/show.html.erb</p>
+<div class="container">
+  <div class="row">
+  		<div class="col-xs-6 col-xs-offset-3">
+
+  		<h2>マイページ</h2>
+
+  		<br><br>
+
+  		<table class="table table-bordered">
+        <div class="user-image">
+          <%= attachment_image_tag(current_enduser, :image, size:"200x200", fallback: "no_image.jpg") %>
+          <h1><%= current_enduser.name %></h1>
+        </div>
+        <br><br>
+  			<tbody>
+  				<tr>
+  					<th>自己紹介</th>
+  					<td><%= current_enduser.introduction %></td>
+  				</tr>
+
+  				<tr>
+  					<th>地域</th>
+  					<td><%= current_enduser.area %></td>
+  				</tr>
+
+  				<tr>
+  					<th>年代</th>
+  					<td><%= current_enduser.age %></td>
+  				</tr>
+
+  				<tr>
+  					<th>登録タグ</th>
+  					<td>tag機能実装時に記述</td>
+  				</tr>
+  			</tbody>
+  		</table>
+      <%= link_to "編集する", edit_public_endusers_path, class: "btn btn-primary" %>
+  		<div>
+  </div>
+</div>

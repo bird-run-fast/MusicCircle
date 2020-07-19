@@ -11,23 +11,23 @@
     <tr>
         <th><%= f.label :ニックネーム %></th>
         <td>
-            <%= f.text_field :name, autofocus: true, class: "name", placeholder: "ニックネーム" %>
+            <%= f.text_field :name, autofocus: true, class: "name input-mysize-md", placeholder: "ニックネーム" %>
         </td>
     </tr>
 
     <tr>
         <th><%= f.label :メールアドレス %></th>
-        <td><%= f.email_field :email, autofocus: true, class: "email", placeholder: "hoge@hoge.com" %></td>
+        <td><%= f.email_field :email, autofocus: true, class: "email input-mysize-md", placeholder: "hoge@hoge.com" %></td>
     </tr>
 
     <tr>
         <th><%= f.label :地域 %></th>
-        <td><%= f.select :area, Enduser.areas.keys, include_blank: "選択してください" %></td>
+        <td><%= f.select :area, Enduser.areas.keys, {include_blank: "選択してください"}, {class: "input-mysize-md"} %></td>
     <tr>
 
     <tr>
         <th><%= f.label :年代 %></th>
-        <td><%= f.select :age, Enduser.ages.keys, include_blank: "選択してください" %></td>
+        <td><%= f.select :age, Enduser.ages.keys, {include_blank: "選択してください"}, {class: "input-mysize-md"}  %></td>
     </tr>
 
     <tr>
@@ -39,12 +39,12 @@
             <!-- <em>(<%= @minimum_password_length %> characters minimum)</em> -->
             <% end %>
         </th>
-        <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+        <td><%= f.password_field :password, autocomplete: "new-password", class: "input-mysize-md",placeholder: "パスワード" %></td>
     </tr>
 
     <tr>
         <th><%= f.label :パスワード（確認用） %></th>
-        <td> <%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+        <td> <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-mysize-md", placeholder: "パスワード(確認用)" %></td>
     </tr>
 </table>
 
