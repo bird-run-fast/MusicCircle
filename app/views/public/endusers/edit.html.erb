@@ -1,2 +1,58 @@
-<h1>Public::Endusers#edit</h1>
-<p>Find me in app/views/public/endusers/edit.html.erb</p>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+
+        <h2><%= current_enduser.name %>さんの会員情報編集</h2>
+        <br><br>
+
+        <%= form_with(model:current_enduser, url:public_endusers_path, method: :patch) do |f| %>
+            <% if current_enduser.errors.any? %>
+                <h3><%= current_enduser.errors.count %>error occurrence</h3>
+                <ul>
+                    <% current_customer.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                      <th><%= attachment_image_tag current_enduser, :image, size:"200x200", format:'jpeg', fallback: "no_image.jpg" %></th>
+                      <td><%= f.attachment_field :image %></td>
+                    </tr>
+
+                    <tr>
+                	 	  <th><%= f.label :名前 %></th>
+                		  <td><%= f.text_field :name, autofocus: true, class: "input-mysize-md" %></td>
+                	  </tr>
+
+                    <tr>
+                      <th><%= f.label :メールアドレス %></th>
+                      <td><%= f.text_field :email, autofocus: true, class: "input-mysize-md" %></td>
+                    </tr>
+
+                    <tr>
+                      <th><%= f.label :地域 %></th>
+                      <td><%= f.select :area, Enduser.areas.keys, {include_blank: "選択してください"}, {class: "input-mysize-md"} %></td>
+                    </tr>
+
+                    <tr>
+                      <th><%= f.label :年代 %></th>
+                      <td><%= f.select :age, Enduser.ages.keys, {include_blank: "選択してください"}, {class: "input-mysize-md"}  %></td>1
+                    </tr>
+
+                    <tr>
+                      <th><%= f.label :自己紹介 %></th>
+                      <td><%= f.text_area :introduction, autofocus: true, class: "input-mysize-message" %></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br>
+            <%= f.submit "編集内容を保存する", class: "btn btn-primary" %>
+        <% end %>
+
+    </div>
+  </div>
+</div>

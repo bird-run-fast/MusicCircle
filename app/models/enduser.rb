@@ -1,9 +1,18 @@
 class Enduser < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  #deviseの初期設定
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # refileの初期設定
+  attachment :image
+
+  # テーブル間のアソシエーション
+  has_many :posts
+
+  # enum型の設定
   enum area: {
     北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,
     茨城県:8,栃木県:9,群馬県:10,埼玉県:11,千葉県:12,東京都:13,神奈川県:14,

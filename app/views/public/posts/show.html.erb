@@ -1,2 +1,94 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<!-- about部分 -->
+<div class="nav-sub">
+  <div class="about-us">
+    Muic Ciecle へようこそ！<br>
+    気軽に音楽仲間を見つけて交流できるサイトです！<br>
+    まずは気軽に「気になる」ボタンを押して交流してみましょう！
+  </div>
+</div>
+<!-- about部分ここまで -->
+<!-- 新規投稿ボタン -->
+<div class="post-create-btn">
+  <%= link_to "新規募集投稿", new_public_post_path, class:"btn btn-primary py-0"%>
+</div>
+<!-- 新規投稿ボタンここまで -->
+
+
+<div class="container">
+  <div class="row">
+
+    <!-- メインコンテンツ部分 -->
+    <div class="col-xs-7 col-xs-offset-1">
+      <!-- 投稿詳細部分 -->
+      <table class="table">
+        <thead class="thead-dark">
+          <tr class="d-flex">
+            <div class="post-title-show">
+              <th>
+                <h2 class="line-height-l"><%= @post.title %></h2>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="d-flex" align="right">
+            <div class="post-date-index">
+              <td>
+                <h5><%= @post.created_at %></h5>
+              </td>
+            </div>
+          </tr>
+
+          <tr class="d-flex">
+            <div class="post-body-index">
+              <td>
+                <h4><%=  simple_format(@post.body, class: "line-height-m") %></h4>
+              </td>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <!-- 投稿詳細部分ここまで -->
+      <!-- チャットへ移るボタン -->
+      <div class="text-center">
+        <p class="btn btn-primary btn-lg">チャットを送信</p>
+      </div>
+      <br><br>
+      <!-- チャットへ移るボタンここまで -->
+      <!-- 投稿者情報部分 -->
+        <div class="post-userinfo-show">
+          <h2>投稿者情報</h2>
+          <div class="post-infobox-show">
+            <div class="row">
+              <div class="col-xs-3">
+                <%= attachment_image_tag(@post.enduser, :image, size:"100x80", fallback: "no_image.jpg") %>
+                <h5 align="center"><%= @post.enduser.name %></h5>
+              </div>
+              <div class="col-xs-8">
+                <p><%= @post.enduser.introduction.truncate(60, spearator:"。") %></p>
+                <div class="text-center">
+                  <p class="btn btn-info btn-lg">フォローする</p>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-7">
+                0 フォロワー | 0フォロー |
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- 投稿者情報部分ここまで -->
+    </div>
+    <!-- メインコンテンツ部分 -->
+
+
+    <!-- サイドバー部分 -->
+    <%= render 'sidebar' %>
+    <!-- サイドバー部分ここまで -->
+
+  </div>
+</div>
