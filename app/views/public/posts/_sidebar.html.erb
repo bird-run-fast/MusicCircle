@@ -17,6 +17,26 @@
     </tbody>
   </table>
   <!-- 人気の募集部分ここまで -->
+  <!-- 人気のタグ部分 -->
+  <table class="table">
+    <thead class="thead-dark">
+      <tr class="d-flex">
+        <th class="col-xs-8"><h3>人気のタグ</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr class="d-flex">
+          <td>
+            <% @hotTags.each do |hotTag|%>
+            <div class="post-hotTags">
+              <%= hotTag.name %>
+            </div>
+            <% end %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- 人気のタグ部分ここまで -->
   <!-- あなたへのおすすめ部分 -->
   <table class="table">
     <thead class="thead-dark">
@@ -30,6 +50,6 @@
       </tr>
     </tbody>
   </table>
-  <!-- あなたへのおすすめ部分ここまで
+  <!-- あなたへのおすすめ部分ここまで -->
 </div>
 <!-- サイドバー部分ここまで -->
