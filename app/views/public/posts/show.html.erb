@@ -26,6 +26,11 @@
             <div class="post-title-show">
               <th>
                 <h2 class="line-height-l"><%= @post.title %></h2>
+                <div class="post-tag">
+                  <% @post.tags.each do |tag| %>
+                  <li><%= tag.name %></li>
+                  <% end %>
+                </div>
               </th>
             </div>
           </tr>
@@ -51,32 +56,35 @@
       </table>
       <br><br>
       <!-- 投稿詳細部分ここまで -->
-      <!-- チャットへ移るボタン -->
-      <div class="text-center">
-        <p class="btn btn-primary btn-lg">チャットを送信</p>
-      </div>
+      <!-- 募集の投稿者なら編集・削除ボタン、そうでなければチャット送信ボタンを表示 -->
+      <% if enduser_signed_in? %>
+        <% if @post.enduser.id == current_enduser.id %>
+          <div class="text-right">
+            <%= link_to "募集を削除", public_post_path, method: :delete, class:"btn btn-danger"%>
+            <%= link_to "募集内容を編集", edit_public_post_path(@post.id), class:"btn btn-primary"%>
+          </div>
+        <% else %>
+          <div class="text-center">
+            <p class="btn btn-primary btn-lg">チャットを送信</p>
+          </div>
+        <% end %>
+      <% end %>
+      <!-- 編集・削除ボタン、チャット送信ボタンを表示ここまで -->
       <br><br>
-      <!-- チャットへ移るボタンここまで -->
       <!-- 投稿者情報部分 -->
         <div class="post-userinfo-show">
           <h2>投稿者情報</h2>
           <div class="post-infobox-show">
             <div class="row">
-              <div class="col-xs-3">
+              <div class="col-xs-4">
                 <%= attachment_image_tag(@post.enduser, :image, size:"100x80", fallback: "no_image.jpg") %>
                 <h5 align="center"><%= @post.enduser.name %></h5>
               </div>
               <div class="col-xs-8">
                 <p><%= @post.enduser.introduction.truncate(60, spearator:"。") %></p>
-                <div class="text-center">
+                <div class="">
                   <p class="btn btn-info btn-lg">フォローする</p>
                 </div>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-7">
-                0 フォロワー | 0フォロー |
               </div>
             </div>
           </div>

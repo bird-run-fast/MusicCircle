@@ -1,2 +1,68 @@
 <h1>Public::Posts#edit</h1>
 <p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <h3 align="center">募集内容を編集する</h3>
+      <br><br>
+
+      <!-- エラーメッセージ表示部分 -->
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      <!-- エラーメッセージ表示部分ここまで -->
+
+      <!-- 新規募集用のフォーム部分 -->
+      <%= form_with(model: @post, url:public_post_path(@post.id), method: :patch) do |f| %>
+        <div class="col form">
+          <table class="table">
+            <tr>
+              <th><%= f.label :タグ%></th>
+              <th>
+                <div class="tag-notice tag-notice-hide">
+                  1~10文字以内でタグを設定してください。
+                </div>
+                <!-- タグ表示用のdiv。後で入力フォーム(id=post-new-form)内の値をjsを用いて子要素としてappendする -->
+                <div class="tag-list" id="tag-list-id">
+                  <% @post.tags.each do |tag|%>
+                    <span class="tag-list-items"><%= tag.name %></span>
+                  <% end %>
+                </div>
+                <!-- フォーム用(サーバーにparamsを渡す用)のdiv。後で入力フォーム(id=post-new-form)内の値をjsを用いて子要素としてappendする -->
+                <div class="tag-form" id="tag-form-id">
+                  <% @post.tags.each do |tag|%>
+                    <input type="text" value=<%=tag.name%> name="tags[]">
+                  <% end %>
+                </div>
+                <!-- ユーザーが投稿に紐づけたいタグを入力・登録するための、一時的なフォーム。-->
+                <!-- １つ登録すると空になるため、最終的には、上のtag-list(表示用)とtag-form(params用)でまとめて管理 -->
+                <input type="text" value="" class="input-mysize-md" id="post-new-tagform" placeholder="タグを追加">
+                <input type="button" value="+" class="tag-btn btn btn-info">
+                <div class="tag-info">
+                  タグを設定することで、同じ趣味や同じ目的のユーザーとつながりやすくなります。<br>
+                  5つまで設定でき、設定したタグはクリックで削除できます。<br>
+                  ※1つのタグは1~10文字以内で設定可能です。
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th><%= f.label :タイトル%></th>
+              <th><%= f.text_field :title, autofocus: true, class: "title input-mysize-md", placeholder: "タイトル" %></th>
+            </tr>
+            <tr>
+              <th><%= f.label :メッセージ%></th>
+              <th><%= f.text_area :body, autofocus: true, class: "body input-mysize-message",placeholder: "メッセージ" %></th>
+            </tr>
+          </table>
+          <br>
+          <div class="post-new-btn" align="center">
+            <%= f.submit "募集内容を編集して投稿する", class: "btn btn-info"%>
+          </div>
+        </div>
+      <% end %>
+      <!-- 新規募集用のフォーム部分ここまで -->
+
+    </div>
+  </div>
+</div>

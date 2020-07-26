@@ -17,7 +17,26 @@
           <table class="table">
             <tr>
               <th><%= f.label :タグ%></th>
-              <th>tag機能実装時にコードを記述</th>
+              <th>
+                <div class="tag-notice tag-notice-hide">
+                  1~10文字以内でタグを設定してください。
+                </div>
+                <!-- タグ表示用のdiv。後で入力フォーム(id=post-new-form)内の値をjsを用いて子要素としてappendする -->
+                <div class="tag-list">
+                </div>
+                <!-- フォーム用(サーバーにparamsを渡す用)のdiv。後で入力フォーム(id=post-new-form)内の値をjsを用いて子要素としてappendする -->
+                <div class="tag-form">
+                </div>
+                <!-- ユーザーが投稿に紐づけたいタグを入力・登録するための、一時的なフォーム。-->
+                <!-- １つ登録すると空になるため、最終的には、上のtag-list(表示用)とtag-form(params用)でまとめて管理 -->
+                <input type="text" value="" class="input-mysize-md" id="post-new-tagform" placeholder="タグを追加">
+                <input type="button" value="+" class="tag-btn btn btn-info">
+                <div class="tag-info">
+                  タグを設定することで、同じ趣味や同じ目的のユーザーとつながりやすくなります。<br>
+                  5つまで設定でき、設定したタグはクリックで削除できます。<br>
+                  ※1つのタグは1~10文字以内で設定可能です。
+                </div>
+              </th>
             </tr>
             <tr>
               <th><%= f.label :タイトル%></th>

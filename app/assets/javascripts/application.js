@@ -10,9 +10,43 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on('turbolinks:load',function(){
+// イベント検出ゾーン
+  // posts-newアクション
+
+  // タグ機能
+  // タグフォーム横の+ボタンが押されたらイベント検出
+  $(".tag-btn").on("click", function(){
+    var tagInput = document.getElementById("post-new-tagform").value;
+    var tagLen = tagInput.length;
+    // 追加したいタグの文字数が1~10文字以内かを確認し、範囲外ならエラーを出す
+    if(tagLen >= 1 && tagLen <= 10){
+      // +ボタンが押されたら、追加したタグをviewに一覧表示し、入力フォーム内の値は空にする
+      $(".tag-list").append(`<span class="tag-list-items tagDelete-btn btn" id="tagList-${tagInput}">${tagInput}</span>`);
+      $("#post-new-tagform").val("");
+      // 文字数制限のnoticeが出てたら隠す
+      $(".tag-notice").addClass("tag-notice-hide");
+      // フォーム用の値をtag-formクラスのdivにいれる
+      $(".tag-form").append(`<input type="text" value="${tagInput}" name="tags[]" id="tagForm-${tagInput}">`);
+    }else{
+      $(".tag-notice").removeClass("tag-notice-hide");
+    }
+  });
+
+  $(".tagDelete-btn").on("click", function(){
+    console.log("OK");
+    tagList = document.getElementById("tag-list-id");
+    tagList.removeChild("tagList-${tagInput}");
+  });
+  // posts-newアクションここまで
+
+// 関数設定ゾーン
+
+});

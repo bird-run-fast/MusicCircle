@@ -38,16 +38,21 @@
                       <h3><%= post.title %></h3>
                     <% end %>
                   </div>
-                  <div class="post-valid"><h5>状態:<%= post.is_valid%></h5></div>
-                  <div class="post-tag">タグ一覧を表示</div>
-                  <div class="post-body"><h5>-   <%= post.body.truncate(40, spearator:"。")%></h5></div>
+                  <div class="post-tag">
+                    <% post.tags.each do |tag| %>
+                    <li><%= tag.name %></li>
+                    <% end %>
+                  </div>
+                  <div class="post-body"><h5>-   <%= post.body.truncate(33, spearator:"。")%></h5></div>
                 </div>
               </td>
               <td class="col-xs-2" align="center">☆</td>
-              <td class="col-xs-3" align="center">
-                <%= attachment_image_tag(current_enduser, :image, size:"100x100", fallback: "no_image.jpg") %>
-                <h4><%= current_enduser.name %></h4>
-              </td>
+              <% if current_enduser%>
+                <td class="col-xs-3" align="center">
+                  <%= attachment_image_tag(post.enduser, :image, size:"100x100", fallback: "no_image.jpg") %>
+                  <h4><%= post.enduser.name %></h4>
+                </td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>
