@@ -40,10 +40,11 @@ $(document).on('turbolinks:load',function(){
     }
   });
 
-  $(".tagDelete-btn").on("click", function(){
-    console.log("OK");
-    tagList = document.getElementById("tag-list-id");
-    tagList.removeChild("tagList-${tagInput}");
+  $(".tag-list").on("click",".tagDelete-btn", function(){
+    var id =  $(this).attr("id");
+    var value = id.split("-")[1];
+    $("#tagList-" + value).remove();
+    $("#tagForm-" + value).remove();
   });
   // posts-newアクションここまで
 

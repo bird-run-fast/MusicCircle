@@ -11,7 +11,8 @@ class Enduser < ApplicationRecord
 
   # テーブル間のアソシエーション
   has_many :posts
-
+  has_many :concerns
+  has_many :concern_posts, through: :concerns, source: :post
   # enum型の設定
   enum area: {
     北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,
