@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   namespace :public  do
     resources :post_tags, only: [:create, :destroy]
     resources :tags
-    resources :concerns, only: [:create, :destroy]
-    resources :posts
+    resources :posts do
+      resource :concerns, only: [:create, :destroy]
+    end
     resource :endusers, only: [:show, :edit, :update]
   end
 end
