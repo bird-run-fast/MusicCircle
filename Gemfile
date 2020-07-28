@@ -74,3 +74,8 @@ gem 'pry-byebug'
 
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
+
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
