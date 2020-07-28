@@ -46,13 +46,36 @@
                   <div class="post-body"><h5>-   <%= post.body.truncate(33, spearator:"。")%></h5></div>
                 </div>
               </td>
-              <td class="col-xs-2" align="center">☆</td>
-              <% if current_enduser%>
+              <td class="col-xs-2" align="center">
+                <div class="created_at_and_updated_at">
+                  <h5>作成日:<%=post.created_at.strftime("%Y-%m-%d")%></h5>
+                  <h5>更新日:<%=post.updated_at.strftime("%Y-%m-%d")%></h5>
+                </div>
+                <br>
+                <div class="concern-btn">
+                  <% if enduser_signed_in? %>
+                    <% if current_enduser.id == post.enduser.id %>
+                      <div class="glyphicon glyphicon-heart non-concern"></div>
+                      <%= post.concerns.count %>
+                      <h6>*自分の投稿</h6>
+                    <% else %>
+                      <% if post.concerned_by?(current_enduser) %>
+                        <%= link_to "",public_post_concerns_path(post.id),method: :delete,class: "glyphicon glyphicon-heart concern" %>
+                        <%= post.concerns.count %>
+                        <h6>気になる済</h6>
+                      <% else %>
+                        <%= link_to "",public_post_concerns_path(post.id),method: :post,class: "glyphicon glyphicon-heart non-concern" %>
+                        <%= post.concerns.count %>
+                        <h6>気になる！</h6>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
                 <td class="col-xs-3" align="center">
                   <%= attachment_image_tag(post.enduser, :image, size:"100x100", fallback: "no_image.jpg") %>
                   <h4><%= post.enduser.name %></h4>
                 </td>
-              <% end %>
             </tr>
             <% end %>
           </tbody>
