@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <div class="search-bar">
+        <div class="user-search">
+          <h3>ユーザー検索</h3>
+          <%= form_tag(public_searches_index_path, method: :get) do %>
+            <%= text_field_tag "search" %>
+            <%= submit_tag "検索" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="search-display">
+        <% if !@endusers.nil? %>
+          <!-- 募集一覧表示の部分(メイン部分) -->
+            <table class="table">
+              <thead class="thead-dark">
+                <tr class="d-flex">
+                  <th class="col-xs-8"><h1>募集の一覧</h1></th>
+                  <th class="col-xs-2"></th>
+                  <th class="col-xs-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @endusers.each do |enduser|%>
+
+                  <% enduser.posts.each do |post|%>
+                  <tr class="d-flex">
+                    <td class="col-xs-7">
+                      <div class="post-box">
+                        <div class="post-title">
+                          <%= link_to public_post_path(post.id) do %>
+                            <h3><%= post.title %></h3>
+                          <% end %>
+                        </div>
+                        <div class="post-tag">
+                          <% post.tags.each do |tag| %>
+                          <li><%= tag.name %></li>
+                          <% end %>
+                        </div>
+                        <div class="post-body"><h5>-   <%= post.body.truncate(33, spearator:"。")%></h5></div>
+                      </div>
+                    </td>
+                    <td class="col-xs-2" align="center">
+                      <div class="created_at_and_updated_at">
+                        <h5>作成日:<%=post.created_at.strftime("%Y-%m-%d")%></h5>
+                        <h5>更新日:<%=post.updated_at.strftime("%Y-%m-%d")%></h5>
+                      </div>
+                      <br>
+                      <div class="concern-btn">
+                        <% if enduser_signed_in? %>
+                          <% if current_enduser.id == post.enduser.id %>
+                            <div class="glyphicon glyphicon-heart non-concern"></div>
+                            <%= post.concerns.count %>
+                            <h6>*自分の投稿</h6>
+                          <% else %>
+                            <% if post.concerned_by?(current_enduser) %>
+                              <%= link_to "",public_post_concerns_path(post.id),method: :delete,class: "glyphicon glyphicon-heart concern" %>
+                              <%= post.concerns.count %>
+                              <h6>気になる済</h6>
+                            <% else %>
+                              <%= link_to "",public_post_concerns_path(post.id),method: :post,class: "glyphicon glyphicon-heart non-concern" %>
+                              <%= post.concerns.count %>
+                              <h6>気になる！</h6>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </td>
+                      <td class="col-xs-3" align="center">
+                        <%= attachment_image_tag(post.enduser, :image, size:"100x100", fallback: "no_image.jpg") %>
+                        <h4><%= post.enduser.name %></h4>
+                      </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            <!-- 募集の一覧表示の部分ここまで-->
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

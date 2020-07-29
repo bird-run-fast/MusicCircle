@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
 
   namespace :public  do
+    get 'searches/index'
     resources :post_tags, only: [:create, :destroy]
     resources :tags
     resources :posts do
