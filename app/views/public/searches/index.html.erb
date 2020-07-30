@@ -2,31 +2,65 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
 
+      <!-- 検索バー部分 -->
       <div class="search-bar">
+        <!-- ユーザー名検索のフォーム -->
         <div class="user-search">
-          <h3>ユーザー検索</h3>
+          <h3>ユーザー名で検索</h3>
           <%= form_tag(public_searches_index_path, method: :get) do %>
-            <%= text_field_tag "search" %>
+            <%= text_field_tag "searchUser", "", :required => true %>
             <%= submit_tag "検索" %>
           <% end %>
         </div>
+        <!-- ユーザー名検索のフォーム -->
+        <!-- タグ検索のフォーム -->
+        <div class="tag-search">
+          <h3>タグ名で検索</h3>
+          <!-- ユーザーの任意のタグ検索フォーム　-->
+          <%= form_tag(public_searches_index_path, method: :get) do %>
+            <%= text_field_tag "searchTag", "", :required => true %>
+            <%= submit_tag "検索" %>
+          <% end %>
+          <!-- ユーザーの任意のタグ検索フォームここまで　-->
+          <!-- 最近登録のあったタグ40件までを表示部分-->
+          <% @allTags.each do |tag| %>
+            <div class="search-form-tag">
+                <li>
+                  <%= link_to public_searches_index_path(searchTag: tag.name) do %>
+                    <%= tag.name %>(<%= tag.posts.count%>)
+                  <% end %>
+                </li>
+            </div>
+          <% end %>
+        </div>
+        <!-- 最近登録のあったタグ40件までを表示部分ここまで-->
+        <!-- タグ検索のフォームここまで -->
       </div>
+      <!-- 検索バー部分ここまで -->
+
 
       <div class="search-display">
-        <% if !@endusers.nil? %>
-          <!-- 募集一覧表示の部分(メイン部分) -->
+        <% if !params[:searchUser].nil? || !params[:searchTag].nil? %>
+          <!--　検索条件に合った募集一覧表示の部分(メイン部分) -->
             <table class="table">
+              <!-- 募集一覧のヘッダー部分 -->
               <thead class="thead-dark">
                 <tr class="d-flex">
-                  <th class="col-xs-8"><h1>募集の一覧</h1></th>
+                    <th class="col-xs-8">
+                      <% if params[:searchUser] %>
+                        <h1>ユーザー名検索: <%= @word %></h1>
+                      <% elsif params[:searchTag] %>
+                        <h1>タグ名検索: <%= @word %></h1>
+                      <% end %>
+                    </th>
                   <th class="col-xs-2"></th>
                   <th class="col-xs-2"></th>
                 </tr>
               </thead>
+              <!-- 募集一覧のヘッダー部分ここまで -->
+              <!-- 募集一覧のボディー部分 -->
               <tbody>
-                <% @endusers.each do |enduser|%>
-
-                  <% enduser.posts.each do |post|%>
+                <% @posts.each do |post|%>
                   <tr class="d-flex">
                     <td class="col-xs-7">
                       <div class="post-box">
@@ -74,11 +108,11 @@
                         <h4><%= post.enduser.name %></h4>
                       </td>
                   </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <!-- 募集の一覧表示の部分ここまで-->
-          <% end %>
+                <% end %>
+              </tbody>
+              <!-- 募集一覧のボディー部分ここまで -->
+            </table>
+            <!-- 検索条件にあった募集の一覧表示の部分ここまで-->
         <% end %>
       </div>
 
