@@ -5,7 +5,7 @@
         <h2><%= current_enduser.name %>さんの会員情報編集</h2>
         <br><br>
 
-        <%= form_with(model:current_enduser, url:public_endusers_path, method: :patch) do |f| %>
+        <%= form_for(current_enduser, url:public_endusers_path, method: :patch, local: true) do |f| %>
             <% if current_enduser.errors.any? %>
                 <h3><%= current_enduser.errors.count %>error occurrence</h3>
                 <ul>
@@ -17,6 +17,7 @@
 
             <table class="table">
                 <tbody>
+                    <%= notice %>
                     <tr>
                       <th><%= attachment_image_tag current_enduser, :image, size:"200x200", format:'jpeg', fallback: "no_image.jpg" %></th>
                       <td><%= f.attachment_field :image %></td>
