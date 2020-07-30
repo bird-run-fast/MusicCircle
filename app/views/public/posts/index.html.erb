@@ -58,16 +58,14 @@
                       <div class="glyphicon glyphicon-heart non-concern"></div>
                       <%= post.concerns.count %>
                       <h6>*自分の投稿</h6>
+                    <% elsif post.concerned_by?(current_enduser)  %>
+                      <%= link_to "",public_post_concerns_path(post.id),method: :delete,class: "glyphicon glyphicon-heart concern" %>
+                      <%= post.concerns.count %>
+                      <h6>気になる済</h6>
                     <% else %>
-                      <% if post.concerned_by?(current_enduser) %>
-                        <%= link_to "",public_post_concerns_path(post.id),method: :delete,class: "glyphicon glyphicon-heart concern" %>
-                        <%= post.concerns.count %>
-                        <h6>気になる済</h6>
-                      <% else %>
-                        <%= link_to "",public_post_concerns_path(post.id),method: :post,class: "glyphicon glyphicon-heart non-concern" %>
-                        <%= post.concerns.count %>
-                        <h6>気になる！</h6>
-                      <% end %>
+                      <%= link_to "",public_post_concerns_path(post.id),method: :post,class: "glyphicon glyphicon-heart non-concern" %>
+                      <%= post.concerns.count %>
+                      <h6>気になる！</h6>
                     <% end %>
                   <% end %>
                 </div>

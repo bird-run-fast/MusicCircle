@@ -8,7 +8,7 @@ class Public::EndusersController < ApplicationController
   def update
     @enduser = current_enduser
     if @enduser.update(enduser_params)
-      redirect_to public_endusers_path(@customer), notice: "登録情報の編集に成功しました"
+      redirect_to public_endusers_path(@enduser), notice: "登録情報の編集に成功しました"
     else
       render :edit
     end
