@@ -8,7 +8,7 @@ class Public::ConcernsController < ApplicationController
   end
 
   def destroy
-    @concern = Concern.find_by(post_id:params[:post_id])
+    @concern = Concern.find_by(post_id:params[:post_id], enduser_id: current_enduser.id)
     @concern.destroy
     redirect_back(fallback_location: root_path)
   end
