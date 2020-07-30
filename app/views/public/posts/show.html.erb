@@ -81,7 +81,9 @@
                 <h5 align="center"><%= @post.enduser.name %></h5>
               </div>
               <div class="col-xs-8">
-                <p><%= @post.enduser.introduction.truncate(60, separator: "。") %></p>
+                <% !if @post.enduser.introduction.nil?%>
+                  <p><%= @post.enduser.introduction.truncate(60, separator: "。") %></p>
+                <% end %>
                 <div class="">
                   <p class="btn btn-info btn-lg">フォローする</p>
                 </div>
