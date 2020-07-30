@@ -29,12 +29,12 @@ $(document).on('turbolinks:load',function(){
     // 追加したいタグの文字数が1~10文字以内かを確認し、範囲外ならエラーを出す
     if(tagLen >= 1 && tagLen <= 10){
       // +ボタンが押されたら、追加したタグをviewに一覧表示し、入力フォーム内の値は空にする
-      $(".tag-list").append('<span class="tag-list-items tagDelete-btn btn" id="tagList-${tagInput}">${tagInput}</span>');
+      $(".tag-list").append(`<span class="tag-list-items tagDelete-btn btn" id="tagList-${tagInput}">${tagInput}</span>`);
       $("#post-new-tagform").val("");
       // 文字数制限のnoticeが出てたら隠す
       $(".tag-notice").addClass("tag-notice-hide");
       // フォーム用の値をtag-formクラスのdivにいれる
-      $(".tag-form").append('<input type="text" value="${tagInput}" name="tags[]" id="tagForm-${tagInput}">');
+      $(".tag-form").append(`<input type="text" value="${tagInput}" name="tags[]" id="tagForm-${tagInput}">`);
     }else{
       $(".tag-notice").removeClass("tag-notice-hide");
     }
