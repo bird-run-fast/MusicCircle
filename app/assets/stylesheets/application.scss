@@ -66,11 +66,6 @@
  	margin-right: 50px;
  }
 
- .name {
- 	 margin-top: 30px;
- 	 margin-right: 20px;
- }
-
  .logo {
   float: left;
  	height: 100px;
@@ -86,4 +81,12 @@
   display: block;
 }
 
+.nav-items {
+  height: 60px;
+  margin-top: 10px;
+}
+
+.nav-image {
+  border-radius: 30px;
+}
 // HEADER部分ここまで

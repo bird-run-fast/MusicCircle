@@ -2,41 +2,57 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
 
-      <!-- 検索バー部分 -->
+      <!-- 検索バー全体 -->
       <div class="search-bar">
-        <!-- ユーザー名検索のフォーム -->
-        <div class="user-search">
-          <h3>ユーザー名で検索</h3>
-          <%= form_tag(public_searches_index_path, method: :get) do %>
-            <%= text_field_tag "searchUser", "", :required => true %>
-            <%= submit_tag "検索" %>
-          <% end %>
-        </div>
-        <!-- ユーザー名検索のフォーム -->
-        <!-- タグ検索のフォーム -->
-        <div class="tag-search">
-          <h3>タグ名で検索</h3>
-          <!-- ユーザーの任意のタグ検索フォーム　-->
-          <%= form_tag(public_searches_index_path, method: :get) do %>
-            <%= text_field_tag "searchTag", "", :required => true %>
-            <%= submit_tag "検索" %>
-          <% end %>
-          <!-- ユーザーの任意のタグ検索フォームここまで　-->
-          <!-- 最近登録のあったタグ40件までを表示部分-->
-          <% @allTags.each do |tag| %>
-            <div class="search-form-tag">
-                <li>
-                  <%= link_to public_searches_index_path(searchTag: tag.name) do %>
-                    <%= tag.name %>(<%= tag.posts.count%>)
+        <!-- 検索フォームタブ切り替え用のコントローラー　-->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active" role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-user" role="tab">ユーザー名検索</a>
+            </li>
+            <li role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag" role="tab">タグ名検索</a>
+            </li>
+          </ul>
+        <!-- 検索フォームタブ切り替え用のコントローラーここまで　-->
+        <!-- 検索フォーム部分-->
+        <div class="tab-content">
+          <!-- ユーザー名検索のフォーム -->
+          <div class="tab-pane active tab-form" id="tab-user" role="tabpane1" align="center">
+            <%= form_tag(public_searches_index_path, method: :get) do %>
+              <span>ユーザー名:</span>
+              <%= text_field_tag "searchUser", "", :required => true, class: "input-mysize-l", placeholder: "ユーザー名" %>
+              <%= submit_tag "検索", class: "btn btn-success" %>
+              <% end %>
+          </div>
+          <!-- ユーザー名検索のフォーム -->
+          <!-- タグ検索のフォーム -->
+          <div class="tab-pane tab-form" id="tab-tag" role="tabpanel">
+              <!-- ユーザーの任意のタグ検索フォーム　-->
+              <div class="search-tag-input" align="center">
+                  <%= form_tag(public_searches_index_path, method: :get) do %>
+                    <span>タグ名:</span>
+                    <%= text_field_tag "searchTag", "", :required => true, class: "input-mysize-l", placeholder: "タグ名"%>
+                    <%= submit_tag "検索", class: "btn btn-success" %>
                   <% end %>
-                </li>
-            </div>
-          <% end %>
-        </div>
-        <!-- 最近登録のあったタグ40件までを表示部分ここまで-->
-        <!-- タグ検索のフォームここまで -->
+              </div>
+                <!-- ユーザーの任意のタグ検索フォームここまで　-->
+                <!-- 最近登録のあったタグ40件までを表示部分-->
+              <div class="search-tag-index">
+                <% @allTags.each do |tag| %>
+                    <%= link_to public_searches_index_path(searchTag: tag.name) do %>
+                      <li class="search-tag-item">
+                        <%= tag.name %>(<%= tag.posts.count%>)
+                      </li>
+                    <% end %>
+                <% end %>
+              </div>
+              <!-- 最近登録のあったタグ40件までを表示部分ここまで-->
+          </div>
+          <!-- タグ検索のフォームここまで -->
       </div>
-      <!-- 検索バー部分ここまで -->
+      <!-- 検索フォーム部分ここまで-->
+    </div>
+    <!-- 検索バー全体ここまで -->
 
 
       <div class="search-display">
