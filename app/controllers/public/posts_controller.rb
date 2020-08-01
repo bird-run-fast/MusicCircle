@@ -5,11 +5,13 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = Post.all.order(created_at: "DESC")
+    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(enduser_id) desc").limit(5)
     @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_id) desc").limit(10)
   end
 
   def show
     @post = Post.find(params[:id])
+    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(enduser_id) desc").limit(5)
     @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_id) desc").limit(10)
   end
 
