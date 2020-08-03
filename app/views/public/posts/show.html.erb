@@ -126,8 +126,22 @@
                 <h6>コメント</h6>
                 <!-- コメントボタン表示部分ここまで -->
                 <!-- ＤＭボタン表示部分 -->
-                <div class="post-show-navItem glyphicon glyphicon-envelope btn col-xs-12"></div>
-                <h6>DM</h6>
+                <!-- すでにチャットをしたことあれば(=@isRoomがtrue),roomのshowへ直接移動, なければentriesの作成を行う-->
+                <% if enduser_signed_in? %>
+                  <% if @isRoom == true %>
+                    <%= link_to "", public_room_path(@roomId), class: "post-show-navItem glyphicon glyphicon-envelope btn col-xs-12 post-show-dmBtn"%>
+                  <% else %>
+                    <%= form_for(@room,url:public_rooms_path) do |f|%>
+                      <%= fields_for @entry do |e|%>
+                        <%= e.hidden_field :enduser_id, value: @post.enduser_id %>
+                      <% end %>
+                      <%= button_tag( class: "btn col-xs-12 post-show-navItem post-show-dmBtn") do %>
+                        <%= content_tag :span, "", class: "glyphicon glyphicon-envelope" %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <h6>DM</h6>
+                <% end %>
                 <!-- ＤＭボタン表示部分ここまで -->
               </div>
               <% end %>

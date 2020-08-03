@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_190512) do
+ActiveRecord::Schema.define(version: 2020_08_01_071220) do
 
   create_table "concerns", force: :cascade do |t|
     t.integer "enduser_id"
@@ -36,6 +36,25 @@ ActiveRecord::Schema.define(version: 2020_07_16_190512) do
     t.index ["reset_password_token"], name: "index_endusers_on_reset_password_token", unique: true
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "enduser_id"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enduser_id"], name: "index_entries_on_enduser_id"
+    t.index ["room_id"], name: "index_entries_on_room_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "enduser_id"
+    t.integer "room_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enduser_id"], name: "index_messages_on_enduser_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+  end
+
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id"
     t.integer "tag_id"
@@ -48,6 +67,12 @@ ActiveRecord::Schema.define(version: 2020_07_16_190512) do
     t.string "title"
     t.text "body"
     t.boolean "is_valid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
