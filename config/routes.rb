@@ -14,5 +14,7 @@ Rails.application.routes.draw do
       resource :concerns, only: [:create, :destroy]
     end
     resource :endusers, only: [:show, :edit, :update]
+    resources :rooms, only: [:create, :show]
+    resources :messages, only: [:create]
   end
 end
