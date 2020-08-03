@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enduser: one
+  room: one
+
+two:
+  enduser: two
+  room: two

@@ -1,0 +1,62 @@
+// Place all the styles related to the public/rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// showアクション
+// チャット相手一覧の表示部分
+.chatIndex-text{
+  color: gray;
+  font-size:15px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.chatIndex-time{
+  font-size: 10px;
+}
+// チャット相手一覧の表示部分ここまで
+
+// チャット内容の表示部分
+.chat-table{
+}
+
+.chat-space{
+  height: 90%;
+  width: 100%;
+  background-color: silver;
+  padding-left: 10px;
+  overflow-y:scroll;
+}
+
+.chat-box-mine {
+  text-align: right;
+  padding: 10px;
+}
+
+.message-form {
+}
+
+.chat-hukidashi-mine {
+  background-color: #a0d8ef;
+  margin-left: 5px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.chat-hukidashi-oppnent {
+  background-color: #FFF;
+  margin-left: 5px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.chat-row {
+  padding-bottom: 10px;
+}
+
+.chatForm-text-field{
+  width: 100%;
+  height: 60px;
+  overflow-y:scroll
+}
+// チャット内容の表示部分ここまで
