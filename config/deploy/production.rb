@@ -61,3 +61,6 @@
 #   }
 
 server '13.230.219.222', user: 'ec2-user', roles: %w{app web db}
+set :ssh_options, {
+ keys: [File.expand_path('~/.ssh/practice-aws.pem')]
+}

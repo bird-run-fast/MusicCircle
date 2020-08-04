@@ -105,28 +105,28 @@
                     <% if current_enduser.id == @post.enduser.id %>
                       <div class="post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12"><%= @post.concerns.count %></div>
                       <br>
-                      <h6>*自分の投稿</h6>
+                      <h6 class="post-show-navItemText">*自分の投稿</h6>
                     <% elsif @post.concerned_by?(current_enduser)  %>
                       <%= link_to "#{@post.concerns.count}",public_post_concerns_path(@post.id),method: :delete,class: "post-show-navItem glyphicon glyphicon-heart concern btn col-xs-12" %>
-                      <h6>気になる済</h6>
+                      <h6 class="post-show-navItemText">気になる済</h6>
                     <% else %>
                       <%= link_to "#{@post.concerns.count}",public_post_concerns_path(@post.id),method: :post,class: "post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12" %>
                       <br>
-                      <h6>気になる！</h6>
+                      <h6 class="post-show-navItemText">気になる！</h6>
                     <% end %>
                   <% else %>
                     <span class="post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12" aria-hidden="true"><%= @post.concerns.count %></span>
                     <br>
-                    <h6>気になる！</h6>
+                    <h6 class="post-show-navItemText">気になる！</h6>
                   <% end %>
                 </div>
                 <!-- 気になるボタン表示部分ここまで -->
                 <!-- コメントボタン表示部分 -->
-                <div class="post-show-navItem glyphicon glyphicon-comment btn col-xs-12"></div>
-                <h6>コメント</h6>
+                <%= link_to "#{@post.comments.count}", {anchor: "commentForm"}, class: "post-show-navItem glyphicon glyphicon-comment btn col-xs-12 post-show-commentBtn" %>
+                <h6 class="post-show-navItemText">コメント</h6>
                 <!-- コメントボタン表示部分ここまで -->
                 <!-- ＤＭボタン表示部分 -->
-                <!-- すでにチャットをしたことあれば(=@isRoomがtrue),roomのshowへ直接移動, なければentriesの作成を行う-->
+                <!-- すでにチャットをしたことあれば(=@isRoomがtrueならば),roomのshowへ直接移動, なければroomのcreateアクションを行う-->
                 <% if enduser_signed_in? %>
                   <% if @isRoom == true %>
                     <%= link_to "", public_room_path(@roomId), class: "post-show-navItem glyphicon glyphicon-envelope btn col-xs-12 post-show-dmBtn"%>
@@ -140,7 +140,7 @@
                       <% end %>
                     <% end %>
                   <% end %>
-                  <h6>DM</h6>
+                  <h6 class="post-show-navItemText">DM</h6>
                 <% end %>
                 <!-- ＤＭボタン表示部分ここまで -->
               </div>
@@ -149,14 +149,50 @@
           </div>
         </div>
         <!-- 編集・削除ボタン、チャット送信ボタンを表示ここまで -->
-
-
       </div>
 
+      <!-- コメント一覧・投稿部分 -->
+      <div class="post-show-commentIndex">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr class="d-flex">
+              <th class="col-xs-8"><h3>コメント一覧 <%= @post.comments.count %>件</h3></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @comments.each do |comment| %>
+              <tr class="d-flex">
+                <td>
+                  <div class="row">
+                    <div class="col-xs-2">
+                      <%= attachment_image_tag(comment.enduser, :image, size:"50x50", fallback: "no_image.jpg") %>
+                    </div>
+                    <div class="col-xs-10">
+                      <%= comment.enduser.name%>
+                      <br>
+                      <h5><%= simple_format(comment.content) %></h5>
+                    </div>
+                  </div>
 
+
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="post-show-commentForm" id="commentForm">
+        <h4>コメント投稿</h4>
+        <%= form_for(@comment,url: public_post_comments_path(@post.id)) do |f| %>
+          <%= f.text_area :content, class: "col-xs-12 post-show-commentInput" %>
+          <%= f.hidden_field :post_id, value: @post.id%>
+           <%= f.submit "コメントする", class: "btn post-show-submitBrn" %>
+        <% end %>
+      </div>
+      <!-- コメント一覧・投稿部分ここまで -->
     </div>
     <!-- メインコンテンツ部分 -->
-
 
     <!-- サイドバー部分 -->
     <%= render 'sidebar' %>

@@ -17,7 +17,7 @@
           <tr class="d-flex">
             <td>
               <h4><%= link_to hotPost.title, public_post_path(hotPost.id) %></h4>
-              <h6>-いいね:<%= hotPost.concerns.count %>件, コメント:0件</h6>
+              <h6>-いいね:<%= hotPost.concerns.count %>件, コメント:<%= hotPost.comments.count%>件</h6>
               <h6>-更新日:<%= hotPost.updated_at.strftime("%Y-%m-%d")%></h6>
             </td>
           </tr>

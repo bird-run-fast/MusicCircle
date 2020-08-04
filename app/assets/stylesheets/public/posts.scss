@@ -148,6 +148,9 @@
   background-color: white;
 }
 
+.post-show-navItemText{
+  line-height: 20px;
+}
 .post-infobox-show{
   width: 80%;
   border: 1px solid;
@@ -155,7 +158,22 @@
   border-radius: 10px;
 }
 
+.post-show-commentBtn{
+  color: gray;
+}
+
 .post-show-dmBtn{
   color: gray;
+}
+
+.post-show-commentForm{
+  padding: 40px 0;
+}
+
+.post-show-commentInput{
+  height: 60px;
+}
+
+.post-show-commentIndex{
 }
 // showアクション部分ここまで

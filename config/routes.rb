@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :tags
     resources :posts do
       resource :concerns, only: [:create, :destroy]
+      resource :comments, only: [:create]
     end
     resource :endusers, only: [:show, :edit, :update]
     resources :rooms, only: [:create, :show]
