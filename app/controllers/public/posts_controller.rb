@@ -11,7 +11,13 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    # sidebar表示用の変数(人気の募集と人気のタグの表示用)部分
+
+    # コメント用の変数
+    @comments = @post.comments
+    @comment = Comment.new
+    # コメント用の変数ここまで
+
+    # sidebar用の変数部分
     # -@hotPostsについて
     # -1PostsテーブルとConcernsテーブルをpost_idをキーとして(.joinで)くっつけて一つのテーブルを作り
     # -作ったテーブルをpost_idの種類ごとにグループ分けし
@@ -19,7 +25,8 @@ class Public::PostsController < ApplicationController
     # -要は同一のpost_idが何個のenduser_idと紐づきを持ってるかカウントして紐づき多い順に並び替えしてる
     @hotPosts = Post.joins(:concerns).group(:post_id).order("count(enduser_id) desc").limit(3)
     @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_id) desc").limit(10)
-    # sidebar表示用の変数(人気の募集と人気のタグの表示用)部分ここまで
+    # sidebar用の変数(人気の募集と人気のタグの表示用)部分ここまで
+
 
     # DM機能用の変数
     if enduser_signed_in?
@@ -53,6 +60,7 @@ class Public::PostsController < ApplicationController
       end
     end
       # DM機能用の変数ここまで
+
   end
 
   def edit

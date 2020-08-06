@@ -24,6 +24,17 @@
                 <% if enduser_signed_in? %>
                   <li><%= link_to " 募集一覧", public_posts_path,class:"glyphicon glyphicon-align-justify nav-items" %></li>
                   <li><%= link_to " 募集検索", public_searches_index_path,class:"glyphicon glyphicon-search search nav-items" %></li>
+                  <li>
+                    <%= link_to(public_notifications_path,class:"nav-items") do %>
+                      <span class="glyphicon glyphicon-bell bell-icon"></span>
+                      <span>通知</span>
+                      <% if current_enduser.passive_notifications.where(checked: false).any? %>
+                        <span class="bell-circle">
+                          <%= current_enduser.passive_notifications.where(checked: false).count %>
+                        </span>
+                      <% end %>
+                    <% end %>
+                  </li>
                   <!-- ユーザー関連のnavをまとめたドロップダウン(bootstrapの記述を使用) -->
                   <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -32,7 +43,7 @@
                       <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><%= link_to "DM", public_searches_index_path,class:"" %></li>
+                        <li><%= link_to "DM", public_room_path(current_enduser.rooms.first),class:"" %></li>
                         <li><%= link_to "マイページ", public_endusers_path(current_enduser.id), class:""%></li>
                         <li><%= link_to "ユーザー情報編集", edit_public_endusers_path, class:""%></li>
                         <li><%= link_to "ログアウト", destroy_enduser_session_path, method: :delete , class:"" %></li>
