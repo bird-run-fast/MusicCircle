@@ -18,6 +18,9 @@ class Enduser < ApplicationRecord
   has_many :rooms, through: :entries# Endusersテーブルから(中間てーぶるを介した)roomsテーブルへの関連付け
   accepts_nested_attributes_for :entries
   has_many :comments
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+
   # enum型の設定
   enum area: {
     北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,

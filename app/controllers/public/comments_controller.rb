@@ -3,7 +3,9 @@ class Public::CommentsController < ApplicationController
     @comment = current_enduser.comments.new(comment_params)
     @comment.post_id = params[:post_id]
     @comment.enduser_id = current_enduser.id
+    @post = @comment.post
     if @comment.save
+      @post.create_notification_comment!(current_enduser, @comment.id)
       redirect_back(fallback_location: root_path)  #コメント送信後は、一つ前のページへリダイレクトさせる。
     else
       redirect_back(fallback_location: root_path)

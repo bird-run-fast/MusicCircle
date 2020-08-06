@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     resource :endusers, only: [:show, :edit, :update]
     resources :rooms, only: [:create, :show]
     resources :messages, only: [:create]
+    resources :notifications, only: [:index]
   end
 end

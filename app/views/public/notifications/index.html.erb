@@ -1,0 +1,24 @@
+<% notifications = @notifications.where.not(visitor_id: current_enduser.id) %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+
+      <table class="table table-striped  table-hover">
+        <thead>
+          <tr>
+            <th>通知一覧</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if notifications.exists? %>
+            <%= render notifications %>
+            <%= paginate notifications %>
+          <% else %>
+            通知はありません
+          <% end %>
+      </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
