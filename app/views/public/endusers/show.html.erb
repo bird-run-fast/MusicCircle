@@ -10,7 +10,7 @@
         <div class="col-xs-3">
           <table class="table">
             <div class="user-image" align="center">
-              <%= attachment_image_tag(current_enduser, :image, size:"200x200", fallback: "no_image.jpg", class: "enduser-show-myimage") %>
+              <%= attachment_image_tag(current_enduser, :image, size:"150x150", fallback: "no_image.jpg", class: "enduser-show-myimage") %>
               <h1><%= current_enduser.name %></h1>
             </div>
             <br><br>
@@ -35,7 +35,7 @@
           <br><br>
           <div class="enduser-option-btn">
             <input type="button" value="投稿一覧を表示" class="col-xs-12 show-postIndex-btn btn btn-info option-btn">
-            <input type="button" value="チャット一覧を表示" class="col-xs-12 show-chatIndex-btn btn btn-info option-btn">
+            <input type="button" value="DM一覧を表示" class="col-xs-12 show-chatIndex-btn btn btn-info option-btn">
           </div>
         </div>
         <!-- マイページのサイドバー部分ここまで -->

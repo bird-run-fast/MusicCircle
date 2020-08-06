@@ -4,6 +4,8 @@ class Public::ConcernsController < ApplicationController
     @concern.enduser_id = current_enduser.id
     @concern.post_id = params[:post_id]
     @concern.save
+    post = Post.find(params[:post_id])
+    post.create_notification_like!(current_enduser)
     redirect_back(fallback_location: root_path)
   end
 
