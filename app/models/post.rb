@@ -8,11 +8,14 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  # バリデーション部分
+  validates :title, presence: true
+  validates :body, presence: true
+
   # enum型の設定
   enum is_valid: {募集中:0, 募集終了:1}
 
   # 関数の設定
-
   # いいねされてるかを判断する関数
   def concerned_by?(enduser)
     concerns.where(enduser_id: enduser.id).exists?

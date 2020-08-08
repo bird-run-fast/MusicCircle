@@ -41,10 +41,10 @@
 
               <div class="">
                 <h4 class="rooms-title">気になる同士</h4>
-                <% @entries.each do |e| %>
+                <% @entries.each do |entry| %>
                   <div class="user-name">
                   <strong>
-                      <%= e.enduser.name %>
+                      <%= entry.enduser.name %>
                   </strong>
                   </div>
                 <% end %>

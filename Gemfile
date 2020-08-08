@@ -85,3 +85,4 @@ group :production do
 end
 
 gem 'ransack'
+gem 'bullet', :group => :development

@@ -4,16 +4,16 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all.order(created_at: "DESC")
-    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(enduser_id) desc").limit(5)
-    @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_id) desc").limit(10)
+    @posts = Post.all.order(created_at: "DESC").includes([:tags, :enduser])
+    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(posts.enduser_id) desc").limit(3)
+    @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_tags.post_id) desc").limit(10)
   end
 
   def show
     @post = Post.find(params[:id])
 
     # コメント用の変数
-    @comments = @post.comments
+    @comments = @post.comments.includes(:enduser)
     @comment = Comment.new
     # コメント用の変数ここまで
 
@@ -23,8 +23,8 @@ class Public::PostsController < ApplicationController
     # -作ったテーブルをpost_idの種類ごとにグループ分けし
     # -その各グループの中で重複してるenduser_idが多い順にグループ分けしている
     # -要は同一のpost_idが何個のenduser_idと紐づきを持ってるかカウントして紐づき多い順に並び替えしてる
-    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(enduser_id) desc").limit(3)
-    @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_id) desc").limit(10)
+    @hotPosts = Post.joins(:concerns).group(:post_id).order("count(posts.enduser_id) desc").limit(3)
+    @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_tags.post_id) desc").limit(10)
     # sidebar用の変数(人気の募集と人気のタグの表示用)部分ここまで
 
 
@@ -71,10 +71,13 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.enduser_id = current_enduser.id
     if @post.save
-      params[:tags].each do |t|
-        tag = Tag.find_or_create_by(name: t)
-        @post_tag =  PostTag.new(post_id: @post.id,tag_id: tag.id)
-        @post_tag.save
+      if params[:tags].nil?
+      else
+        params[:tags].each do |t|
+          tag = Tag.find_or_create_by(name: t)
+          @post_tag =  PostTag.new(post_id: @post.id,tag_id: tag.id)
+          @post_tag.save
+        end
       end
       redirect_to public_posts_path, notice: "募集の投稿に成功しました！"
     else
@@ -86,10 +89,13 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.update(post_params)
       @post.post_tags.destroy_all
-      params[:tags].each do |t|
-        tag = Tag.find_or_create_by(name: t)
-        @post_tag =  PostTag.new(post_id: @post.id,tag_id: tag.id)
-        @post_tag.save
+      if params[:tags].nil?
+      else
+        params[:tags].each do |t|
+          tag = Tag.find_or_create_by(name: t)
+          @post_tag =  PostTag.new(post_id: @post.id,tag_id: tag.id)
+          @post_tag.save
+        end
       end
       redirect_to public_posts_path, notice: "募集内容の編集に成功しました"
     else
