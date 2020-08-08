@@ -12,9 +12,9 @@ class Public::RoomsController < ApplicationController
     @room = Room.find(params[:id])
     if Entry.where(:enduser_id => current_enduser.id, :room_id => @room.id).present?
       # メッセージ一覧の表示部分
-      @messages = @room.messages
+      @messages = @room.messages.includes(:enduser)
       @message = Message.new
-      @entries = @room.entries
+      @entries = @room.entries.includes(:enduser)
       # メッセージ一覧の表示部分ここまで
 
       # チャット相手一覧の表示部分。以下1~4は手順。

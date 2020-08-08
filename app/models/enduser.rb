@@ -21,6 +21,11 @@ class Enduser < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
+  # バリデーション部分
+  validates :name, presence: true
+  validates :area, presence: true
+  validates :age, presence: true
+
   # enum型の設定
   enum area: {
     北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,
