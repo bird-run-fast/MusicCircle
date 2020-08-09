@@ -28,7 +28,7 @@ class Public::RoomsController < ApplicationController
       @combs = []
       @roomIds.each do |roomId|
         # 手順2
-        @entryUser = Room.find(roomId).endusers.where.not(id: current_enduser)
+        @entryUser = Room.find(roomId).endusers.where.not(id: current_enduser).first
         # 手順3
         @entrymessage = Message.where(room_id: roomId).last
         # 手順4　(@combs=[]はループの前に出してる)
@@ -36,10 +36,6 @@ class Public::RoomsController < ApplicationController
         @comb.push(@entryUser, @entrymessage)
         @combs.push(@comb)
       end
-      # なぜかこの記述だと@combs[0][0][0]に最初の@entryUserが入り、combs[0][1]に最初の@messageが入る
-      # @combs[0][0]がactiveRecordsの値なのでrailsの使用上の問題?　後でメンターに聞く。
-      # チャット相手一覧の表示部分ここまで
-
     else
       redirect_back(fallback_location: root_path)
     end

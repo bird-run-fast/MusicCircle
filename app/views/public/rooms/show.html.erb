@@ -13,9 +13,9 @@
               <tr>
                 <td>
                   <h4>
-                    <%= attachment_image_tag(comb[0][0], :image, size:"30x30", fallback: "no_image.jpg") %>
-                    <%= comb[0][0].name %>
-                    <span class="chatIndex-time"><%= comb[0][0].created_at.strftime("%H:%M")%></span>
+                    <%= attachment_image_tag(comb[0], :image, size:"30x30", fallback: "no_image.jpg") %>
+                    <%= comb[0].name %>
+                    <span class="chatIndex-time"><%= comb[0].created_at.strftime("%H:%M")%></span>
                   </h4>
                   <% if comb[1].nil?%>
                     <h5>メッセージを送ってみましょう</h5>
