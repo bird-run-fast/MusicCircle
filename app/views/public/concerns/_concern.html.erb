@@ -1,0 +1,20 @@
+<% if enduser_signed_in? %>
+  <% if current_enduser.id == post.enduser.id %>
+    <div class="glyphicon glyphicon-heart non-concern"></div>
+    <%= post.concerns.count %>
+    <h6>*自分の投稿</h6>
+  <% elsif post.concerned_by?(current_enduser)  %>
+    <!-- link_to内のオプションの, remote: true　を設定しておくことでjs形式のリクエストになり、コントローラーを経由後にjsファイルを探しにいってくれる-->
+    <%= link_to "",public_post_concerns_path(post.id),method: :delete,remote: true,class: "glyphicon glyphicon-heart concern",data: {"turbolinks" => false} %>
+    <%= post.concerns.count %>
+    <h6>気になる済</h6>
+  <% else %>
+    <%= link_to "",public_post_concerns_path(post.id),method: :post,remote: true,class: "glyphicon glyphicon-heart non-concern",data: {"turbolinks" => false} %>
+    <%= post.concerns.count %>
+    <h6>気になる！</h6>
+  <% end %>
+<% else %>
+  <span class="glyphicon glyphicon-heart non-concern" aria-hidden="true"></span>
+  <%= post.concerns.count %>
+  <h6>気になる！</h6>
+<% end %>

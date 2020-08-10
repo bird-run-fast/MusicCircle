@@ -9,7 +9,11 @@
 <!-- about部分ここまで -->
 <!-- 新規投稿ボタン -->
 <div class="post-create-btn">
-  <%= link_to "新規募集投稿", new_public_post_path, class:"btn btn-primary py-0"%>
+  <% if enduser_signed_in? %>
+    <%= link_to "新規募集投稿", new_public_post_path, class:"btn btn-primary py-0"%>
+  <% else %>
+    <%= link_to "新規募集投稿", new_enduser_registration_path, class:"btn btn-primary py-0"%>
+  <% end %>
 </div>
 <!-- 新規投稿ボタンここまで -->
 
@@ -56,28 +60,14 @@
                   <h5>更新日:<%=post.updated_at.strftime("%Y-%m-%d")%></h5>
                 </div>
                 <!-- 気になるボタン表示部分 -->
-                <div class="concern-btn">
-                  <% if enduser_signed_in? %>
-                    <% if current_enduser.id == post.enduser.id %>
-                      <div class="glyphicon glyphicon-heart non-concern"></div>
-                      <%= post.concerns.count %>
-                      <h6>*自分の投稿</h6>
-                    <% elsif post.concerned_by?(current_enduser)  %>
-                      <%= link_to "",public_post_concerns_path(post.id),method: :delete,class: "glyphicon glyphicon-heart concern" %>
-                      <%= post.concerns.count %>
-                      <h6>気になる済</h6>
-                    <% else %>
-                      <%= link_to "",public_post_concerns_path(post.id),method: :post,class: "glyphicon glyphicon-heart non-concern" %>
-                      <%= post.concerns.count %>
-                      <h6>気になる！</h6>
-                    <% end %>
-                  <% else %>
-                    <span class="glyphicon glyphicon-heart non-concern" aria-hidden="true"></span>
-                    <%= post.concerns.count %>
-                    <h6>気になる！</h6>
-                  <% end %>
+                  <!-- 非同期化しており、使いまわせるよう部分テンプレートにしている。非同期のデータの流れとしては、-->
+                  <!-- 1.renderで部分テンプレート(public/concerns/concern)のビューを呼び出し-->
+                  <!-- 2.js形式 のリクエストで link_to する(link_toのオプションでremote:trueとすればjs形式になる。コントローラー経由後jsファイル探しにいってくれる)-->
+                  <!-- 3.コントローラーで処理を行ったあと,jsファイル(public/concern/create もしくは　destroy.js.erb)を探しに行くので,そこで部分的にrenderを行うよう指示-->
+                <div class="concern-btn" id="concernBtn_<%= post.id %>">
+                  <%= render partial: 'public/concerns/concern', locals: { post: post} %>
                 </div>
-                <!-- 気になるボタン表示部分 -->
+                <!-- 気になるボタン表示部分ここまで -->
               </td>
                 <td class="col-xs-3" align="center">
                   <%= attachment_image_tag(post.enduser, :image, size:"100x100", fallback: "no_image.jpg") %>

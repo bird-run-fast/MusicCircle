@@ -1,0 +1,14 @@
+<tr class="d-flex" id="comment-<%= comment.id %>">
+  <td>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= attachment_image_tag(comment.enduser, :image, size:"50x50", fallback: "no_image.jpg") %>
+      </div>
+      <div class="col-xs-10">
+        <%= comment.enduser.name%>
+        <br>
+        <h5><%= simple_format(comment.content) %></h5>
+      </div>
+    </div>
+  </td>
+</tr>
