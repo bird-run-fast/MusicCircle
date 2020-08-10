@@ -1,0 +1,12 @@
+<div class="post-show-commentIndex">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr class="d-flex">
+        <th id="comments-count" class="col-xs-8"><h3>コメント一覧 <%= @post.comments.count %>件</h3></th>
+      </tr>
+    </thead>
+    <tbody id="js-table-comment">
+      <%= render comments %>
+    </tbody>
+  </table>
+</div>

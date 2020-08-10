@@ -1,0 +1,1 @@
+$('#concernBtn_<%= params[:post_id] %>').html("<%= j(render partial: 'public/concerns/concern', locals: {post: Post.find(params[:post_id])}) %>");

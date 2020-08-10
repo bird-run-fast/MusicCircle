@@ -57,7 +57,7 @@
             <!-- 募集一覧のヘッダー部分ここまで -->
             <!-- 募集一覧のボディー部分 -->
             <tbody>
-              <% current_enduser.posts.each do |post|%>
+              <% @posts.each do |post|%>
                 <tr class="d-flex">
                   <td class="col-xs-7">
                     <div class="post-box">
@@ -97,17 +97,30 @@
           <table class="table nonactive" id="enduser-show-chatIndex">
             <thead>
               <tr class="d-flex">
-                <th><h2>チャット一覧</h2></th>
-                <th></th>
+                <th><h2>DM一覧</h2></th>
               </tr>
             </thead>
             <!-- 募集一覧のヘッダー部分ここまで -->
             <!-- 募集一覧のボディー部分 -->
             <tbody>
-                <tr class="d-flex">
-                  <td></td>
-                  <td></td>
-                </tr>
+              <% if current_enduser.rooms.exists? %>
+                <% @combs.each do |comb|%>
+                  <tr>
+                    <td>
+                      <h4>
+                        <%= attachment_image_tag(comb[0], :image, size:"30x30", fallback: "no_image.jpg") %>
+                        <%= link_to comb[0].name,public_room_path(comb[2])%>
+                        <span class="chatIndex-time"><%= comb[0].created_at.strftime("%H:%M")%></span>
+                      </h4>
+                      <% if comb[1].nil?%>
+                        <h5>メッセージを送ってみましょう</h5>
+                      <% else %>
+                        <h5 class="chatIndex-text">- <%= comb[1].content %></h5>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
             </tbody>
           </table>
           <!-- マイページの、その人のチャット一覧の表示部分-->

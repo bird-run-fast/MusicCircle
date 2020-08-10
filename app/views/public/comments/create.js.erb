@@ -1,0 +1,3 @@
+$('#js-table-comment').prepend("<%= j(render 'comment',{ comment: @comment }) %>");
+$('#comment_body').val('')
+$('#comments-count').html('<h3>コメント一覧 <%= @post.comments.count %>件</h3>')
