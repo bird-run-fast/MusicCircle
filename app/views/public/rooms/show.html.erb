@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row height-fixed">
+    <!-- チャット相手一覧の表示部分 -->
     <div class="col-xs-3">
       <div style="height:700px; width:300px; overflow-y:scroll;">
         <table class="table" bgcolor="#9999ff">
@@ -8,91 +9,86 @@
                 <h2>チャット相手一覧</h2>
               </th>
             </tr>
-
-            <% @combs.each do |comb|%>
-              <tr>
-                <td>
-                  <h4>
-                    <%= attachment_image_tag(comb[0], :image, size:"30x30", fallback: "no_image.jpg") %>
-                    <%= comb[0].name %>
-                    <span class="chatIndex-time"><%= comb[0].created_at.strftime("%H:%M")%></span>
-                  </h4>
-                  <% if comb[1].nil?%>
-                    <h5>メッセージを送ってみましょう</h5>
-                  <% else %>
-                    <h5 class="chatIndex-text">- <%= comb[1].content %></h5>
-                  <% end %>
-                  <h6>
-                  </h6>
-                </td>
-              </tr>
+            <% if current_enduser.rooms.exists? %>
+              <% @combs.each do |comb|%>
+                <tr>
+                  <td>
+                    <h4>
+                      <%= attachment_image_tag(comb[0], :image, size:"30x30", fallback: "no_image.jpg") %>
+                      <%= link_to comb[0].name,public_room_path(comb[2])%>
+                      <span class="chatIndex-time"><%= comb[0].created_at.strftime("%H:%M")%></span>
+                    </h4>
+                    <% if comb[1].nil?%>
+                      <h5>メッセージを送ってみましょう</h5>
+                    <% else %>
+                      <h5 class="chatIndex-text">- <%= comb[1].content %></h5>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
         </table>
       </div>
     </div>
+    <!-- チャット相手一覧の表示部分ここまで -->
+
     <div class="col-xs-2">
 
+    <!-- チャットメッセージの表示部分 -->
     </div>
     <div class="col-xs-6">
       <table width="600" height="700" class="chat-table">
         <tr>
           <td width="600" height="700" >
-            <div class="chat-space">
+            <% if current_enduser.rooms.exists? %>
+              <div class="chat-space">
 
-              <div class="">
-                <h4 class="rooms-title">気になる同士</h4>
-                <% @entries.each do |entry| %>
-                  <div class="user-name">
-                  <strong>
-                      <%= entry.enduser.name %>
-                  </strong>
-                  </div>
-                <% end %>
-                <hr>
-                <div class="chats">
-                    <div class="chat">
-                      <% if @messages.present? %>
-                        <% @messages.each do |m| %>
-                          <% if current_enduser.id == m.enduser.id%>
-                            <div class="chat-box-mine">
-                              <div class="chat-row">
-                                <h6><%= m.created_at.strftime("%H:%M")%>
-                                <strong class="chat-hukidashi-mine"><%= m.content %></strong></h6>
+                <div class="">
+                  <div class="chats">
+                      <div class="chat">
+                        <% if @messages.present? %>
+                          <% @messages.each do |m| %>
+                            <% if current_enduser.id == m.enduser.id%>
+                              <div class="chat-box-mine">
+                                <div class="chat-row">
+                                  <h6><%= m.created_at.strftime("%H:%M")%>
+                                  <strong class="chat-hukidashi-mine"><%= m.content %></strong></h6>
+                                </div>
                               </div>
-                            </div>
-                          <% else %>
-                            <div class="chat-box-oppnent">
-                              <div class="chat-face">
-                                <h6>
-                                  <%= attachment_image_tag(m.enduser, :image, size:"30x30", fallback: "no_image.jpg") %>
-                                  <%= m.enduser.name %>
-                                </h6>
+                            <% else %>
+                              <div class="chat-box-oppnent">
+                                <div class="chat-face">
+                                  <h6>
+                                    <%= attachment_image_tag(m.enduser, :image, size:"30x30", fallback: "no_image.jpg") %>
+                                    <%= m.enduser.name %>
+                                  </h6>
+                                </div>
+                                <div class="chat-row">
+                                  <h6><%= m.created_at.strftime("%H:%M")%>
+                                  <strong class="chat-hukidashi-oppnent"><%= m.content %></strong></h6>
+                                </div>
                               </div>
-                              <div class="chat-row">
-                                <h6><%= m.created_at.strftime("%H:%M")%>
-                                <strong class="chat-hukidashi-oppnent"><%= m.content %></strong></h6>
-                              </div>
-                            </div>
+                            <% end %>
+
                           <% end %>
-
                         <% end %>
-                      <% end %>
-                    </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
 
-            </div>
-            <div class="message-box">
-              <%= form_for(@message, url:public_messages_path) do |f| %>
-                <%= f.text_area :content, placeholder: "メッセージを入力" , class:"chatForm-text-field" %>
-                <%= f.hidden_field :room_id, value: @room.id %>
-                <%= f.submit "投稿",class: 'form-submit col-xs-12'%>
-              <% end %>
-            </div>
+              </div>
+              <div class="message-box">
+                <%= form_for(@message, url:public_messages_path) do |f| %>
+                  <%= f.text_area :content, placeholder: "メッセージを入力" , class:"chatForm-text-field" %>
+                  <%= f.hidden_field :room_id, value: @room.id %>
+                  <%= f.submit "投稿",class: 'form-submit col-xs-12'%>
+                <% end %>
+              </div>
+            <% end %>
           </td>
         </tr>
       </table>
-
+      <!-- チャットメッセージの表示部分ここまで -->
 
 
 

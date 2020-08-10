@@ -152,44 +152,19 @@
       </div>
 
       <!-- コメント一覧・投稿部分 -->
-      <div class="post-show-commentIndex">
-        <table class="table">
-          <thead class="thead-dark">
-            <tr class="d-flex">
-              <th class="col-xs-8"><h3>コメント一覧 <%= @post.comments.count %>件</h3></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @comments.each do |comment| %>
-              <tr class="d-flex">
-                <td>
-                  <div class="row">
-                    <div class="col-xs-2">
-                      <%= attachment_image_tag(comment.enduser, :image, size:"50x50", fallback: "no_image.jpg") %>
-                    </div>
-                    <div class="col-xs-10">
-                      <%= comment.enduser.name%>
-                      <br>
-                      <h5><%= simple_format(comment.content) %></h5>
-                    </div>
-                  </div>
+      <%= render 'public/comments/comments_area', comments: @comments %>
 
 
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="post-show-commentForm" id="commentForm">
-        <h4>コメント投稿</h4>
-        <%= form_for(@comment,url: public_post_comments_path(@post.id)) do |f| %>
-          <%= f.text_area :content, class: "col-xs-12 post-show-commentInput" %>
-          <%= f.hidden_field :post_id, value: @post.id%>
-           <%= f.submit "コメントする", class: "btn post-show-submitBrn" %>
-        <% end %>
-      </div>
+      <% if enduser_signed_in? %>
+        <div class="post-show-commentForm" id="commentForm">
+          <h4>コメント投稿</h4>
+          <%= form_with(model:@comment, url: public_post_comments_path(@post.id), remote: true) do |f| %>
+            <%= f.text_area :content, class: "col-xs-12 post-show-commentInput" %>
+            <%= f.hidden_field :post_id, value: @post.id%>
+             <%= f.submit "コメントする", class: "btn post-show-submitBrn" %>
+          <% end %>
+        </div>
+      <% end %>
       <!-- コメント一覧・投稿部分ここまで -->
     </div>
     <!-- メインコンテンツ部分 -->
