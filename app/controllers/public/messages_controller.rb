@@ -5,6 +5,7 @@ class Public::MessagesController < ApplicationController
     if Entry.where(:enduser_id => current_enduser.id, :room_id => params[:message][:room_id]).present?
       @message = Message.create(params.require(:message).permit(:enduser_id, :content, :room_id).merge(:enduser_id => current_enduser.id))
       # 下のvisitedIdはnotificationに渡すvisited_id用の変数
+      # 作成したメッセージが所属しているroomに紐づく2ユーザー(1:1チャットなので2ユーザー)のうち、自分でないほうのユーザーのidを取得したもの
       # .endusersで多数のアソシエショーンを持ってきたり、.whereで複数の値をもってきたりすると配列型になる
       # roomに所属しているのがユーザーを探し(1対1チャットなので構造上２人に絞れる)、自分以外の人って条件なのでデータ一つになることはわかってるけど配列型のため[0]のインデックス番号を指定。
       visitedId = Room.find(params[:message][:room_id]).endusers.where.not(id: current_enduser.id)[0].id

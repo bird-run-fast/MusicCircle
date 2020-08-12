@@ -24,7 +24,7 @@
                         <% if comb[1].nil?%>
                           <h5 class="chatIndex-text">メッセージを送ってみましょう</h5>
                         <% else %>
-                          <h5 class="chatIndex-text">- <%= comb[1].content %></h5>
+                          <h5 class="chatIndex-text">- <%= comb[1].content.truncate(10) %></h5>
                         <% end %>
                       </div>
                       <div class="col-xs-3 enduser-unreadNotification-area">
