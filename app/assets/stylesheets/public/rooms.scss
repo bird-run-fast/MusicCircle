@@ -14,6 +14,23 @@
 .chatIndex-time{
   font-size: 10px;
 }
+
+.unreadNotification-area{
+}
+
+
+.unreadNotification{
+  margin-top: 40%;
+  color: #fff;
+  background-color:#FA4F4F;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: table;
+  vertical-align: middle;
+  border-radius: 50%;
+}
 // チャット相手一覧の表示部分ここまで
 
 // チャット内容の表示部分

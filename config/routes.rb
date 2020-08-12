@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resource :comments, only: [:create]
     end
     resource :endusers, only: [:show, :edit, :update]
+    get 'endusers/dmshow' => 'endusers#dmshow'
     resources :rooms, only: [:create, :show]
     resources :messages, only: [:create]
     resources :notifications, only: [:index]
