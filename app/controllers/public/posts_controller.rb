@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
 
     # sidebar用の変数部分
     # -@hotPostsについて
-    # -1PostsテーブルとConcernsテーブルをpost_idをキーとして(.joinで)くっつけて一つのテーブルを作り
+    # -1PostsテーブルとConcernsテーブルをpost_idをキーとして(.joinで)くっつけて一つのテーブルを作り(内部結合)
     # -作ったテーブルをpost_idの種類ごとにグループ分けし
     # -その各グループの中で重複してるenduser_idが多い順にグループ分けしている
     # -要は同一のpost_idが何個のenduser_idと紐づきを持ってるかカウントして紐づき多い順に並び替えしてる
@@ -30,7 +30,7 @@ class Public::PostsController < ApplicationController
 
     # DM機能用の変数
     if enduser_signed_in?
-      # view内のDMボタンが押されたときにDMのroomに移動もしくはcreateしたい
+      # view内のDMボタンが押されたときにその2ユーザー用のroomに移動もしくはroomをcreateしたい
       # 誰(@currentEnduserEntry)と誰(@enduserEntry)のDMなのかをentriesテーブルに記録したいので、whereを使って値を取得
       @currentEnduserEntry = Entry.where(enduser_id: current_enduser.id)
       @enduserEntry = Entry.where(enduser_id: @post.enduser_id)

@@ -43,7 +43,7 @@
                       <span>通知</span>
                       <% if current_enduser.passive_notifications.where(checked: false).where.not(action: "message").any? %>
                         <span class="bell-circle">
-                          <%= current_enduser.passive_notifications.where(checked: false).count %>
+                          <%= current_enduser.passive_notifications.where(checked: false).where.not(action: "message").count %>
                         </span>
                       <% end %>
                     <% end %>

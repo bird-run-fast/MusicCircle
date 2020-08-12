@@ -100,25 +100,8 @@
               <% else %>
               <div class="post-show-navItems">
                 <!-- 気になるボタン表示部分 -->
-                <div class="concern-btn">
-                  <% if enduser_signed_in? %>
-                    <% if current_enduser.id == @post.enduser.id %>
-                      <div class="post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12"><%= @post.concerns.count %></div>
-                      <br>
-                      <h6 class="post-show-navItemText">*自分の投稿</h6>
-                    <% elsif @post.concerned_by?(current_enduser)  %>
-                      <%= link_to "#{@post.concerns.count}",public_post_concerns_path(@post.id),method: :delete,class: "post-show-navItem glyphicon glyphicon-heart concern btn col-xs-12" %>
-                      <h6 class="post-show-navItemText">気になる済</h6>
-                    <% else %>
-                      <%= link_to "#{@post.concerns.count}",public_post_concerns_path(@post.id),method: :post,class: "post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12" %>
-                      <br>
-                      <h6 class="post-show-navItemText">気になる！</h6>
-                    <% end %>
-                  <% else %>
-                    <span class="post-show-navItem glyphicon glyphicon-heart non-concern btn col-xs-12" aria-hidden="true"><%= @post.concerns.count %></span>
-                    <br>
-                    <h6 class="post-show-navItemText">気になる！</h6>
-                  <% end %>
+                <div class="concern-btn" id="concernBtn_<%= @post.id %>">
+                  <%= render partial: 'public/concerns/concern', locals: { post: @post} %>
                 </div>
                 <!-- 気になるボタン表示部分ここまで -->
                 <!-- コメントボタン表示部分 -->
