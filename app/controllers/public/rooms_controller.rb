@@ -38,6 +38,13 @@ class Public::RoomsController < ApplicationController
           @comb.push(@entryUser, @entrymessage,roomId)
           @combs.push(@comb)
         end
+
+        # 未読通知の解除
+        @notifications = current_enduser.passive_notifications.where(visitor_id: @room.endusers.where.not(id: current_enduser.id)[0].id, action: "message").includes([:visitor,:visited, :post])
+        @notifications.where(checked: false).each do |notification|
+          notification.update_attributes(checked: true)
+        end
+        # 未読通知の解除
       else
         redirect_back(fallback_location: root_path)
       end

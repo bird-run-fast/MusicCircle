@@ -1,6 +1,10 @@
 class Public::EndusersController < ApplicationController
   before_action :authenticate_enduser!
   def show
+    @posts = current_enduser.posts.includes([:post_tags, :tags]).page(params[:page]).per(10)
+  end
+
+  def dmshow
     @posts = current_enduser.posts.includes([:post_tags, :tags])
     # チャット相手一覧の表示部分。以下1~4は手順。
     # - 1.ログインしているユーザに紐づくroomsのIDを取得。(@roomIds)

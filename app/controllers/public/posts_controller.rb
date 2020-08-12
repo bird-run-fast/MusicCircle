@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all.order(created_at: "DESC").includes([:tags, :enduser])
+    @posts = Post.all.order(created_at: "DESC").includes([:tags, :enduser]).page(params[:page]).per(10)
     @hotPosts = Post.joins(:concerns).group(:post_id).order("count(posts.enduser_id) desc").limit(3)
     @hotTags = Tag.joins(:post_tags).group(:tag_id).order("count(post_tags.post_id) desc").limit(10)
   end

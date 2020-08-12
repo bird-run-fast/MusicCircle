@@ -24,16 +24,24 @@
                 <% if enduser_signed_in? %>
                   <li><%= link_to " 募集一覧", public_posts_path,class:"glyphicon glyphicon-align-justify nav-items" %></li>
                   <li><%= link_to " 募集検索", public_searches_index_path,class:"glyphicon glyphicon-search search nav-items" %></li>
-                  <% if current_enduser.rooms.exists? %>
-                    <li><%= link_to " DM", public_room_path(current_enduser.rooms.first),class:"glyphicon glyphicon-envelope nav-items" %></li>
-                  <% else %>
-                    <li><%= link_to " DM", public_room_path("noRoom"),class:"glyphicon glyphicon-envelope nav-items" %></li>
-                  <% end %>
+                  <!-- ログインユーザーに紐づくroomsが一つでもあるかどうかで分岐し、リンク先を変更-->
+                  <li>
+                    <%= link_to(public_endusers_dmshow_path,class:"nav-items") do %>
+                      <span class="glyphicon glyphicon-envelope bell-icon"></span>
+                      <span>DM</span>
+                      <!-- 未読件数の通知をしたいため、通知テーブルに保存されている、actionカラムが"message"で未チェックのものがあればカウントして表示する-->
+                      <% if current_enduser.passive_notifications.where(action:"message", checked: false).any? %>
+                        <span class="bell-circle">
+                          <%= current_enduser.passive_notifications.where(action:"message", checked: false).count %>
+                        </span>
+                      <% end %>
+                    <% end %>
+                  </li>
                   <li>
                     <%= link_to(public_notifications_path,class:"nav-items") do %>
                       <span class="glyphicon glyphicon-bell bell-icon"></span>
                       <span>通知</span>
-                      <% if current_enduser.passive_notifications.where(checked: false).any? %>
+                      <% if current_enduser.passive_notifications.where(checked: false).where.not(action: "message").any? %>
                         <span class="bell-circle">
                           <%= current_enduser.passive_notifications.where(checked: false).count %>
                         </span>

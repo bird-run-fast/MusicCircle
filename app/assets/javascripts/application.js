@@ -20,18 +20,18 @@
 $(document).on('turbolinks:load',function(){
 // イベント検出ゾーン
 
-  // マイページのオプションの表示切替部分(enduser-showアクション)
-  $(".show-postIndex-btn").on("click", function(){
-    $("#enduser-show-chatIndex").addClass("nonactive")
-    $("#enduser-show-postIndex").removeClass("nonactive")
-  });
-
-  $(".show-chatIndex-btn").on("click", function(){
-    $("#enduser-show-postIndex").addClass("nonactive")
-    $("#enduser-show-chatIndex").removeClass("nonactive")
-  });
-
-  // マイページのオプションの表示切替部分(enduser-showアクション)ここまで
+  // // マイページのオプションの表示切替部分(enduser-showアクション)
+  // $(".show-postIndex-btn").on("click", function(){
+  //   $("#enduser-show-chatIndex").addClass("nonactive")
+  //   $("#enduser-show-postIndex").removeClass("nonactive")
+  // });
+  //
+  // $(".show-chatIndex-btn").on("click", function(){
+  //   $("#enduser-show-postIndex").addClass("nonactive")
+  //   $("#enduser-show-chatIndex").removeClass("nonactive")
+  // });
+  //
+  // // マイページのオプションの表示切替部分(enduser-showアクション)ここまで
 
 
   // タグ機能(post-new,editアクション)

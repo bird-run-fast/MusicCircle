@@ -34,14 +34,13 @@
           <%= link_to "", edit_public_endusers_path, class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
           <br><br>
           <div class="enduser-option-btn">
-            <input type="button" value="投稿一覧を表示" class="col-xs-12 show-postIndex-btn btn btn-info option-btn">
-            <input type="button" value="DM一覧を表示" class="col-xs-12 show-chatIndex-btn btn btn-info option-btn">
+            <%= link_to "投稿一覧を表示", public_endusers_path,class:"col-xs-12 show-chatIndex-btn btn btn-info option-btn" %>
+            <%= link_to "DM一覧を表示", public_endusers_dmshow_path,class:"col-xs-12 show-chatIndex-btn btn btn-info option-btn" %>
           </div>
         </div>
         <!-- マイページのサイドバー部分ここまで -->
         <div class="col-xs-1">
         </div>
-        <!--　検索条件に合った募集一覧表示の部分(メイン部分) -->
         <div class="col-xs-8">
           <!-- マイページの、その人のした投稿一覧の表示部分 -->
           <table class="table" id="enduser-show-postIndex">
@@ -93,38 +92,7 @@
             </tbody>
           </table>
           <!-- マイページの、その人のした投稿一覧の表示部分 -->
-          <!-- マイページの、その人のチャット一覧の表示部分-->
-          <table class="table nonactive" id="enduser-show-chatIndex">
-            <thead>
-              <tr class="d-flex">
-                <th><h2>DM一覧</h2></th>
-              </tr>
-            </thead>
-            <!-- 募集一覧のヘッダー部分ここまで -->
-            <!-- 募集一覧のボディー部分 -->
-            <tbody>
-              <% if current_enduser.rooms.exists? %>
-                <% @combs.each do |comb|%>
-                  <tr>
-                    <td>
-                      <h4>
-                        <%= attachment_image_tag(comb[0], :image, size:"30x30", fallback: "no_image.jpg") %>
-                        <%= link_to comb[0].name,public_room_path(comb[2])%>
-                        <span class="chatIndex-time"><%= comb[0].created_at.strftime("%H:%M")%></span>
-                      </h4>
-                      <% if comb[1].nil?%>
-                        <h5>メッセージを送ってみましょう</h5>
-                      <% else %>
-                        <h5 class="chatIndex-text">- <%= comb[1].content %></h5>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-          <!-- マイページの、その人のチャット一覧の表示部分-->
-          <!-- 検索条件にあった募集の一覧表示の部分ここまで-->
+          <%= paginate @posts %>
         </div>
       </div>
 
