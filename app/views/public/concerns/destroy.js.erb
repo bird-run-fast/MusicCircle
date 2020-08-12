@@ -1,1 +1,5 @@
+// 順番的にはconcernsコントローラ経由後にこのjsファイルを実行
+// id = concernBtnの部分のHTMLだけ、renderで部分的に更新するという処理
+// .html()を用いて、viewのid= #concernBtn の部分に html 要素の追加を行う。
+// j()は中に書いてある ruby文 を js語 に変換してくれる関数
 $('#concernBtn_<%= params[:post_id] %>').html("<%= j(render partial: 'public/concerns/concern', locals: {post: Post.find(params[:post_id])}) %>");

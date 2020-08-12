@@ -41,7 +41,7 @@ class Post < ApplicationRecord
   end
   # 「いいね」時に通知を作成する関数(通知機能)ここまで
 
-  # コメント時に通知を作成する関する(通知機能)
+  # コメント時に通知を作成する関数(通知機能)
   def create_notification_comment!(current_enduser, comment_id)
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     temp_ids = Comment.select(:enduser_id).where(post_id: id).where.not(enduser_id: current_enduser.id).distinct
@@ -66,5 +66,5 @@ class Post < ApplicationRecord
     end
     notification.save if notification.valid?
   end
-  # コメント時に通知を作成する関する(通知機能)
+  # コメント時に通知を作成する関数通知機能)
 end
