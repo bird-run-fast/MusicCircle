@@ -1,7 +1,7 @@
 class Public::EndusersController < ApplicationController
   before_action :authenticate_enduser!
   def show
-    @posts = current_enduser.posts.includes([:post_tags, :tags])
+    @posts = current_enduser.posts.includes([:post_tags, :tags]).page(params[:page]).per(10)
   end
 
   def dmshow
