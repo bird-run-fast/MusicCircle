@@ -16,8 +16,10 @@ Rails.application.routes.draw do
     end
     resource :endusers, only: [:show, :edit, :update]
     get 'endusers/dmshow' => 'endusers#dmshow'
+    get 'endusers/chart' => 'endusers#chart'
     resources :rooms, only: [:create, :show]
     resources :messages, only: [:create]
     resources :notifications, only: [:index]
+    resources :chart_sample, only: [:index]
   end
 end
