@@ -5,12 +5,10 @@
     <h6>*自分の投稿</h6>
   <% elsif post.concerned_by?(current_enduser)  %>
     <!-- link_to内のオプションの, remote: true　を設定しておくことでjs形式のリクエストになり、コントローラーを経由後にjsファイルを探しにいってくれる-->
-    <%= link_to "",public_post_concerns_path(post.id),method: :delete,remote: true,class: "glyphicon glyphicon-heart concern",data: {"turbolinks" => false} %>
-    <%= post.concerns.count %>
+    <%= link_to "#{post.concerns.count}",public_post_concerns_path(post.id),method: :delete,remote: true,class: "post-show-navItem glyphicon glyphicon-heart btn col-xs-12 post-show-commentBtn",data: {"turbolinks" => false} %>
     <h6>気になる済</h6>
   <% else %>
-    <%= link_to "",public_post_concerns_path(post.id),method: :post,remote: true,class: "glyphicon glyphicon-heart non-concern",data: {"turbolinks" => false} %>
-    <%= post.concerns.count %>
+    <%= link_to "#{post.concerns.count}",public_post_concerns_path(post.id),method: :post,remote: true,class: "post-show-navItem glyphicon glyphicon-heart btn col-xs-12 post-show-commentBtn",data: {"turbolinks" => false} %>
     <h6>気になる！</h6>
   <% end %>
 <% else %>

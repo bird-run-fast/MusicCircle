@@ -86,3 +86,7 @@ end
 
 gem 'ransack'
 gem 'bullet', :group => :development
+
+gem 'chart-js-rails', '~> 0.1.4'
+gem "chartkick"
+gem 'groupdate'
