@@ -1,5 +1,5 @@
 // j()について、中の ruby 文を js語に直してくれる関数。jsの文法を使って値の処理をしたいときはj()を用いて、ruby文をjs文に変換する必要がある。
 // #comments-countのjs処理のような、ただこの文字列を挿入する！みたいな場合であればj()つかわなくてOK.むしろ使うと動かなくなる
 $('#js-table-comment').prepend("<%= j(render 'comment',{ comment: @comment }) %>");
-$('#comment_body').val('')
+$('#comment_content').val('')
 $('#comments-count').html('<h3>コメント一覧 <%= @post.comments.count %>件</h3>')

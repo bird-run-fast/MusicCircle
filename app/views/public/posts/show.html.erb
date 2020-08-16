@@ -142,7 +142,7 @@
         <div class="post-show-commentForm" id="commentForm">
           <h4>コメント投稿</h4>
           <%= form_with(model:@comment, url: public_post_comments_path(@post.id), remote: true) do |f| %>
-            <%= f.text_area :content, class: "col-xs-12 post-show-commentInput" %>
+            <%= f.text_area :content, class: "col-xs-12 post-show-commentInput"%>
             <%= f.hidden_field :post_id, value: @post.id%>
              <%= f.submit "コメントする", class: "btn post-show-submitBrn" %>
           <% end %>
