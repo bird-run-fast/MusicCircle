@@ -1,0 +1,23 @@
+<!-- バッチ種類一覧部分 -->
+<table class="table">
+  <caption>バッチリスト</caption>
+  <tr>
+    <th class="col-xs-2">バッチ種類</th>
+    <th class="col-xs-6">概要</th>
+    <th class="col-xs-2">自動実行(切替機能未実装、常にON)</th>
+    <th class="col-xs-2">今すぐ実行</th></tr>
+  <tr>
+    <td>ユーザーのスコア付け</td>
+    <td>直近一週間の投稿内容に応じて投稿の安全度のスコア付けを行います。マナー違反のユーザーがいるか調査することができます。</td>
+    <td><input type="checkbox" checked data-toggle="toggle"></td>
+    <td><%= link_to "バッチ実行", admins_batches_score_path, class: "btn btn-info", data: { confirm: 'バッチ処理を行います。少し時間がかかりますがよろしいですか？' } %></td>
+  </tr>
+  <tr>
+    <td>流行ワードの調査</td>
+    <td>直近一週間の投稿内容に応じて、頻出の単語を切り分けを行います。タグ付けされていない流行ワードを調査することができます。</td>
+    <td><input type="checkbox" checked data-toggle="toggle"></td>
+    <td><%= link_to "バッチ実行", admins_charts_path, class: "btn btn-info", data: { confirm: 'バッチ処理を行います。少し時間がかかりますがよろしいですか？' } %></td>
+  </tr>
+  <tr></tr>
+</table>
+<!-- バッチ種類一覧部分ここまで -->

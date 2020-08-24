@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
   root "public/posts#index"
 
+  devise_for :admins, controllers: {
+    sessions: 'admins/devise/sessions'
+  }
+
   devise_for :endusers, path: :public, controllers: {
     sessions: 'public/devise/sessions',
     registrations: 'public/devise/registrations'
   }
+
+  namespace :admins do
+    resources :endusers, only: [:destroy]
+    resources :batches, only: [:index]
+    get "batches/score" => "batches#score"
+    resources :charts, only: [:index]
+  end
 
   namespace :public  do
     get 'searches/index'

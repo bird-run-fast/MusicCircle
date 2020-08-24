@@ -55,13 +55,36 @@ $(document).on('turbolinks:load',function(){
     }
   });
 
+  // $(".tagDeleteBtn")のようにjsでappendで追加したクラスに対してのイベントは書き方によっては反応しないため注意
+  // jsはページが読み込まれたときにイベント監視の対象が決まる。そのため後から追加された.tagDeleteBtnはイベント監視対象じゃないため反応しない
+  // 今回のように親要素にイベントを指定して、第二引数に子要素を指定してあげると、親要素にはイベントふられているためうまくいく
+  // バインド(前者)とデリゲート(後者)っていうみたい。参考: https://app.codegrid.net/entry/practical-jquery-1#toc-0
   $(".tag-list").on("click",".tagDelete-btn", function(){
     var id =  $(this).attr("id");
     var value = id.split("-")[1];
     $("#tagList-" + value).remove();
     $("#tagForm-" + value).remove();
   });
-  // タグ機能(post-new,editアクション)
+  // タグ機能(post-new,editアクション)ここまで
+
+  // 集計機能(admins/ endusers-indexアクション)
+  $("#chart-form-control").change(function(){
+    var formVal = $("#chart-form-control").val();
+    if (formVal == "chartsWeekBtn") {
+      $("#chartsWeek").removeClass("displayNone")
+      $("#chartsMonth").addClass("displayNone")
+      $("#chartsYear").addClass("displayNone")
+    }else if (formVal == "chartsMonthBtn") {
+      $("#chartsWeek").addClass("displayNone")
+      $("#chartsMonth").removeClass("displayNone")
+      $("#chartsYear").addClass("displayNone")
+    }else if (formVal == "chartsYearBtn") {
+      $("#chartsWeek").addClass("displayNone")
+      $("#chartsMonth").addClass("displayNone")
+      $("#chartsYear").removeClass("displayNone")
+    }
+  })
+  // 集計機能(admins/ endusers-indexアクション)ここまで
 
 // 関数設定ゾーン
 

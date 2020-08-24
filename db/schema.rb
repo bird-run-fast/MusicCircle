@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_040023) do
+ActiveRecord::Schema.define(version: 2020_08_23_154054) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -42,6 +55,8 @@ ActiveRecord::Schema.define(version: 2020_08_05_040023) do
     t.integer "age"
     t.text "introduction"
     t.string "image_id"
+    t.float "score"
+    t.boolean "is_deleted", default: false, null: false
     t.index ["email"], name: "index_endusers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_endusers_on_reset_password_token", unique: true
   end
