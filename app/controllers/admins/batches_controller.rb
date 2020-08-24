@@ -27,15 +27,17 @@ class Admins::BatchesController < ApplicationController
   end
 
   def entities
-    endusers = Enduser.all
-    from = Time.current.at_beginning_of_day
-    to = (from + 6.day)
-    weekDate = from .. to
+    # endusers = Enduser.all
+    # from = Time.current.at_beginning_of_day
+    # to = (from + 6.day)
+    # weekDate = from .. to
+    #
+    # text = Post.where(created_at: weekDate).pluck(:body).join
+    # entities = Language.analyzeEntities(text)['entities'].pluck("name")
+    # countEntities = entities.group_by(&:itself).map{|k, v|[k, v.count]}
+    # hotEntities = countEntities.sort{|a, b| a[1] <=> b[1]}.reverse.slice(0..4)
 
-    text = Post.where(created_at: weekDate).pluck(:body).join
-    entities = Language.analyzeEntities(text)['entities'].pluck("name")
-    countEntities = entities.group_by(&:itself).map{|k, v|[k, v.count]}
-    hotEntities = countEntities.sort{|a, b| a[1] <=> b[1]}.reverse.slice(0..4)
+    
 
   end
 
