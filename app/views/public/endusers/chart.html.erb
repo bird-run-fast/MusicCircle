@@ -39,8 +39,17 @@
       <!-- 集計ページのメインバー部分-->
       <div class="col-xs-9">
         <!-- 一週間分のお気に入り数とコメント数の集計 -->
-        <h1>Last 7 days</h1>
-
+        <div class="dropdown">
+          <button type="button" id="dropdown1" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <h3>Last 7 days <b class="caret"></b> </h3>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdown1">
+            <ul>
+              <li><a id="last-1-yaer-btn" class="dropdown-item active" href="#">Last 1 yaer</a></li>
+            </ul>
+          </div>
+        </div>
+        <br>
         <!-- タブ切り替え用のバー(週間分) -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="active" role="presentation">
@@ -72,36 +81,48 @@
 
 
        <!-- 一年分のお気に入り数とコメント数の集計 -->
-       <h1>Last 1 years</h1>
-
-       <!-- タブ切り替え用のバー(年間分) -->
-       <ul class="nav nav-tabs" role="tablist">
-         <li class="active" role="presentation">
-           <a aria-controls="tab_user" data-toggle="tab" href="#tab-user2"  role="tab" class="glyphicon glyphicon-heart chart-icons">
-             <%= @sumConcerns_year %>
-           </a>
-         </li>
-         <li role="presentation">
-           <a aria-controls="tab_user1" data-toggle="tab" href="#tab-tag2" role="tab" class="glyphicon glyphicon-comment chart-icons">
-             <%= @sumComments_year %>
-           </a>
-         </li>
-       </ul>
-       <!-- タブ切り替え用のバー(週間分)ここまで -->
-
-       <!-- 表示する集計グラフ部分(週間分) -->
-       <div class="tab-content">
-         <div class="tab-pane active tab-form" id="tab-user2" role="tabpane1">
-           <h5>　　気になる数(/年間)</h5>
-           <%= column_chart @concerns_year, width: "500px", height: "300px" %>
+       <div class="chart-1-year">
+         <div class="dropdown">
+           <button type="button" id="dropdown1" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <h3>Last 1 yaer <b class="caret"></b> </h3>
+           </button>
+           <div class="dropdown-menu" aria-labelledby="dropdown1">
+             <ul>
+               <li><a id="last-7-days-btn" class="dropdown-item active" href="#">Last 7 days</a></li>
+             </ul>
+           </div>
          </div>
-         <div class="tab-pane tab-form" id="tab-tag2" role="tabpanel">
-           <h5>　　コメント数(/年間)</h5>
-           <%= column_chart @comments_year, width: "500px", height: "300px" %>
-         </div>
-      </div>
-      <!-- 表示する集計グラフ部分(週間分)ここまで -->
-      <!-- 一週間分のお気に入り数とコメント数の集計ここまで -->
+         <br>
+
+         <!-- タブ切り替え用のバー(年間分) -->
+         <ul class="nav nav-tabs" role="tablist">
+           <li class="active" role="presentation">
+             <a aria-controls="tab_user" data-toggle="tab" href="#tab-user2"  role="tab" class="glyphicon glyphicon-heart chart-icons">
+               <%= @sumConcerns_year %>
+             </a>
+           </li>
+           <li role="presentation">
+             <a aria-controls="tab_user1" data-toggle="tab" href="#tab-tag2" role="tab" class="glyphicon glyphicon-comment chart-icons">
+               <%= @sumComments_year %>
+             </a>
+           </li>
+         </ul>
+         <!-- タブ切り替え用のバー(年間分)ここまで -->
+
+         <!-- 表示する集計グラフ部分(年間分) -->
+         <div class="tab-content">
+           <div class="tab-pane active tab-form" id="tab-user2" role="tabpane1">
+             <h5>　　気になる数(/年間)</h5>
+             <%= column_chart @concerns_year, width: "500px", height: "300px" %>
+           </div>
+           <div class="tab-pane tab-form" id="tab-tag2" role="tabpanel">
+             <h5>　　コメント数(/年間)</h5>
+             <%= column_chart @comments_year, width: "500px", height: "300px" %>
+           </div>
+        </div>
+        <!-- 表示する集計グラフ部分(年間分)ここまで -->
+       </div>
+      <!-- 一年分のお気に入り数とコメント数の集計ここまで -->
     </div>
     <!-- 集計ページのメインバー部分ここまで-->
     </div>

@@ -4,7 +4,7 @@
     <h4 style="color:red" ><%= flash[:error] %></h4>
     <br><br>
 
-    <h4>会員の方はこちらからログイン</h4>
+    <h4>管理者の方はこちらからログイン</h4>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
@@ -26,11 +26,7 @@
 
     <% end %>
 
-    <h4>登録がお済みでない方</h4>
-    <%= link_to "こちら", new_enduser_registration_path %>から新規登録を行ってください
     <br><br><br>
-    <%= link_to "=>パスワードを忘れた方はこちら", new_enduser_password_path %>
-    <br>
-    <%= link_to "=>管理者の方はこちら", new_admin_session_path %>
+    <%= link_to "=>一般会員の方はこちら", new_enduser_session_path %>
   </div>
 </div>
