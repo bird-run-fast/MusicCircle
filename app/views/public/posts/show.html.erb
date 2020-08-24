@@ -129,6 +129,12 @@
               </div>
               <% end %>
             <% end %>
+            <% if admin_signed_in? %>
+              <div class="post-show-navItems">
+                <%= link_to "募集内容編集", edit_public_post_path(@post.id), class:"col-xs-12 text-left"%>
+                <%= link_to "募集を削除", public_post_path, method: :delete, class:"col-xs-12 text-left"%>
+              </div>
+            <% end %>
           </div>
         </div>
         <!-- 編集・削除ボタン、チャット送信ボタンを表示ここまで -->

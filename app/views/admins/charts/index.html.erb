@@ -1,0 +1,140 @@
+
+<!-- 登録者と投稿数の集計部分 -->
+<div class="chart-membersAndPosts bg-lightgray">
+
+  <div class="">
+    <h2>
+      <div class="form-inline">
+        <span>登録者/投稿数の集計</span>
+        <select id="chart-form-control" class="form-control">
+
+          <option hidden>集計範囲</option>
+          <option value="chartsWeekBtn">Last 7 days</option>
+          <option value="chartsMonthBtn">Last 30 days</option>
+          <option value="chartsYearBtn">Last 1 yaer</option>
+        </select>
+      </div>
+    </h2>
+  </div>
+  <br>
+
+
+  <!-- 一週間の新機会員数/新規投稿数の集計 -->
+  <div id="chartsWeek" class="section">
+    <h4>Last 7 days</h4>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active" role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user"  role="tab" class="chart-icons">
+          <h6>登録者数</h6>
+        </a>
+      </li>
+      <li role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag" role="tab" class="chart-icons">
+          <h6>投稿数</h6>
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active tab-form" id="tab-user" role="tabpane1">
+        <h5>　　新規登録者数(/週間)</h5>
+        <%= line_chart @endusersWeek, width: "500px", height: "300px" %>
+      </div>
+      <div class="tab-pane tab-form" id="tab-tag" role="tabpanel">
+        <h5>　　新規投稿数(/週間)</h5>
+        <%= line_chart @postsWeek, width: "500px", height: "300px" %>
+      </div>
+    </div>
+  </div>
+  <!-- 一週間の新機会員数/新規投稿数の集計 -->
+
+  <!-- 一ヶ月の新機会員数/新規投稿数の集計 -->
+  <div id="chartsMonth" class="section displayNone">
+    <h4>Last 30 days</h4>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active" role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user2"  role="tab" class="chart-icons">
+          <h6>登録者数</h6>
+        </a>
+      </li>
+      <li role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag2" role="tab" class="chart-icons">
+          <h6>投稿数</h6>
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active tab-form" id="tab-user2" role="tabpane1">
+        <h5>　　新規登録者数(/月間)</h5>
+        <%= line_chart @endusersMonth, width: "500px", height: "300px" %>
+      </div>
+      <div class="tab-pane tab-form" id="tab-tag2" role="tabpanel">
+        <h5>　　新規投稿数(/月間)</h5>
+        <%= line_chart @postsMonth, width: "500px", height: "300px" %>
+      </div>
+    </div>
+  </div>
+  <!-- 一ヶ月の新機会員数/新規投稿数の集計 -->
+
+  <!-- 一年間の新機会員数/新規投稿数の集計 -->
+  <div id="chartsYear" class="section displayNone">
+    <h4>Last 1 yaer</h4>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active" role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user3"  role="tab" class="chart-icons">
+          <h6>登録者数</h6>
+        </a>
+      </li>
+      <li role="presentation">
+        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag3" role="tab" class="chart-icons">
+          <h6>投稿数</h6>
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active tab-form" id="tab-user3" role="tabpane1">
+        <h5>　　新規登録者数(/年間)</h5>
+        <%= line_chart @endusersYear, width: "500px", height: "300px" %>
+      </div>
+      <div class="tab-pane tab-form" id="tab-tag3" role="tabpanel">
+        <h5>　　新規投稿数(/年間)</h5>
+        <%= line_chart @postsYear, width: "500px", height: "300px" %>
+      </div>
+    </div>
+  </div>
+  <!-- 一年間の新機会員数/新規投稿数の集計 -->
+
+</div>
+<!-- 登録者と投稿数の集計部分ここまで -->
+
+<!-- 注意対象ユーザーの一覧 -->
+<div class="attentionTargetUsersIndex bg-lightgray">
+  <h2>注意対象ユーザー一覧</h2>
+  <br>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ユーザー名</th>
+        <th scope="col">ユーザースコア</th>
+        <th scope="col">直近の投稿内容</th>
+        <th scope="col">強制退会させる</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attentionTargetUsers.each do |atu|%>
+      <tr>
+        <th scope="row">1</th>
+        <td><%= atu.name %></td>
+        <td><%= atu.score %></td>
+        <td><%= link_to atu.posts.last.body.truncate(12), public_post_path(atu.posts.last.id), class: ""%></td>
+        <td><%= link_to "退会処理", admins_enduser_path(atu.id), method: :delete, class: "btn btn-danger", data: { confirm: '選択したユーザーを強制的に退会させます。よろしいですか？' }%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!-- 注意対象ユーザーの一覧 ここまで　-->

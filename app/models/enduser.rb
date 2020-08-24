@@ -42,4 +42,11 @@ class Enduser < ApplicationRecord
     １０代前半:1,１０代後半:2,２０代前半:3,２０代後半:4,３０代前半:5,３０代後半:6,
     ４０代前半:7,４０代後半:8,５０代前半:9,５０代後半:10,６０代前半:11,６０代後半:7,７０代以降:8
   }
+
+  # この記述でdeviseのもとからあったactive_for_authentication?メソッドを上書きしている
+  # superはクラスの継承が行われていて、同名のメソッドがある場合に、親クラスの同名メソッドの記述をもってくる記述
+  # 今回は親クラスのもとからあった記述に加え、enduserモデルのis_deletedがfalseであることを条件に加えて上書き
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
 end
