@@ -1,140 +1,235 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
 
-<!-- 登録者と投稿数の集計部分 -->
-<div class="chart-membersAndPosts bg-lightgray">
+      <!-- 登録者と投稿数の集計部分 -->
+      <div class="chart-membersAndPosts bg-lightgray admin-chats-box">
 
-  <div class="">
-    <h2>
-      <div class="form-inline">
-        <span>登録者/投稿数の集計</span>
-        <select id="chart-form-control" class="form-control">
+        <div class="">
+          <h2>
+            <div class="form-inline">
+              <span>登録者/投稿数の集計</span>
+              <select id="chart-form-control" class="form-control">
 
-          <option hidden>集計範囲</option>
-          <option value="chartsWeekBtn">Last 7 days</option>
-          <option value="chartsMonthBtn">Last 30 days</option>
-          <option value="chartsYearBtn">Last 1 yaer</option>
-        </select>
+                <option hidden>集計範囲</option>
+                <option value="chartsWeekBtn">Last 7 days</option>
+                <option value="chartsMonthBtn">Last 30 days</option>
+                <option value="chartsYearBtn">Last 1 yaer</option>
+              </select>
+            </div>
+          </h2>
+        </div>
+        <br>
+
+
+        <!-- 一週間の新機会員数/新規投稿数の集計 -->
+        <div id="chartsWeek" class="section">
+          <h4>Last 7 days</h4>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active" role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-user"  role="tab" class="chart-icons">
+                <h6>登録者数</h6>
+              </a>
+            </li>
+            <li role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag" role="tab" class="chart-icons">
+                <h6>投稿数</h6>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active tab-form" id="tab-user" role="tabpane1">
+              <% if @endusersWeek.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else %>
+                <h5>　　新規登録者数(/週間)</h5>
+                <%= line_chart @endusersWeek, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+            <div class="tab-pane tab-form" id="tab-tag" role="tabpanel">
+              <% if @postsWeek.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else %>
+                <h5>　　新規投稿数(/週間)</h5>
+                <%= line_chart @postsWeek, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- 一週間の新機会員数/新規投稿数の集計ここまで -->
+
+        <!-- 一ヶ月の新機会員数/新規投稿数の集計 -->
+        <div id="chartsMonth" class="section displayNone">
+          <h4>Last 30 days</h4>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active" role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-user2"  role="tab" class="chart-icons">
+                <h6>登録者数</h6>
+              </a>
+            </li>
+            <li role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag2" role="tab" class="chart-icons">
+                <h6>投稿数</h6>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active tab-form" id="tab-user2" role="tabpane1">
+              <% if @endusersMonth.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else%>
+                <h5>　　新規登録者数(/月間)</h5>
+                <%= line_chart @endusersMonth, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+            <div class="tab-pane tab-form" id="tab-tag2" role="tabpanel">
+              <% if @postsMonth.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else %>
+                <h5>　　新規投稿数(/月間)</h5>
+                <%= line_chart @postsMonth, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- 一ヶ月の新機会員数/新規投稿数の集計ここまで -->
+
+        <!-- 一年間の新機会員数/新規投稿数の集計 -->
+        <div id="chartsYear" class="section displayNone">
+          <h4>Last 1 yaer</h4>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active" role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-user3"  role="tab" class="chart-icons">
+                <h6>登録者数</h6>
+              </a>
+            </li>
+            <li role="presentation">
+              <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag3" role="tab" class="chart-icons">
+                <h6>投稿数</h6>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active tab-form" id="tab-user3" role="tabpane1">
+              <% if @endusersYear.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else %>
+                <h5>　　新規登録者数(/年間)</h5>
+                <%= line_chart @endusersYear, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+            <div class="tab-pane tab-form" id="tab-tag3" role="tabpanel">
+              <% if @postsYear.nil? %>
+                <h3>集計期間が経過していないため、グラフは作成されていません</h3>
+              <% else%>
+                <h5>　　新規投稿数(/年間)</h5>
+                <%= line_chart @postsYear, width: "500px", height: "300px" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- 一年間の新機会員数/新規投稿数の集計ここまで -->
+
       </div>
-    </h2>
-  </div>
-  <br>
+      <!-- 登録者と投稿数の集計部分ここまで -->
 
+      <!-- 注意対象ユーザーの一覧 -->
+      <div class="attentionTargetUsersIndex bg-lightgray admin-chats-box">
+        <h2>注意対象ユーザー一覧</h2>
+        <h6>一定期間ごとに、各ユーザーの投稿内容をスコア付けし、基準を平均的に下回る投稿者を表示しています</h6>
+        <h6>掲示板を荒らしたり、不快なコメントを多くするユーザーを見つけるきっかけになります</h6>
+        <br>
+        <% if @attentionTargetUsers.empty? %>
+          <h4>現在、注意対象のユーザーはいません</h4>
+        <% else %>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ユーザー名</th>
+                <th scope="col">ユーザースコア</th>
+                <th scope="col">直近の投稿内容</th>
+                <th scope="col">強制退会させる</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @attentionTargetUsers.each do |atu|%>
+              <tr>
+                <th scope="row">1</th>
+                <td><%= atu.name %></td>
+                <td><%= atu.score %></td>
+                <td><%= link_to atu.posts.last.body.truncate(12), public_post_path(atu.posts.last.id), class: ""%></td>
+                <td><%= link_to "退会処理", admins_enduser_path(atu.id), method: :delete, class: "btn btn-danger", data: { confirm: '選択したユーザーを強制的に退会させます。よろしいですか？' }%></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
 
-  <!-- 一週間の新機会員数/新規投稿数の集計 -->
-  <div id="chartsWeek" class="section">
-    <h4>Last 7 days</h4>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active" role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user"  role="tab" class="chart-icons">
-          <h6>登録者数</h6>
-        </a>
-      </li>
-      <li role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag" role="tab" class="chart-icons">
-          <h6>投稿数</h6>
-        </a>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active tab-form" id="tab-user" role="tabpane1">
-        <h5>　　新規登録者数(/週間)</h5>
-        <%= line_chart @endusersWeek, width: "500px", height: "300px" %>
       </div>
-      <div class="tab-pane tab-form" id="tab-tag" role="tabpanel">
-        <h5>　　新規投稿数(/週間)</h5>
-        <%= line_chart @postsWeek, width: "500px", height: "300px" %>
+      <!-- 注意対象ユーザーの一覧 ここまで　-->
+
+      <div class="bg-lightgray admin-chats-box">
+        <div class="">
+          <div class="attentionTargetUsersIndex bg-lightgray">
+            <h2>Twitter関係のレポート</h2>
+            <h6>*APIで料金かかりそうなので、実際の自動更新は毎週ではなく月一回になってます</h6>
+            <br>
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th class="col-xs-2">項目</th>
+                  <th class="col-xs-6">用途及び説明</th>
+                  <th class="col-xs-4">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ハッシュタグ集計</strong></td>
+                  <td>
+                    <strong>用途: </strong>
+                    現在のサービスの満足度の一つの目安として使用できます。<br>
+                    <strong>説明: </strong>
+                    ハッシュタグ「#MusicCircleTest01」で呟かれた今週中のツイート件数と、そのツイート内容ががどのくらいの好感度で書かれていたか知ることができます。
+                    スコアは-1.0に近いほどネガティブな内容、1.0に近いほどポジティブな内容になります。
+                  </td>
+                  <td>
+                    <% if @latest_twSentiment.nil? %>
+                      まだレポートは作成されていません
+                    <% else %>
+                      今週 「#MusicCircleTest01」で呟かれたツイートは　<strong><%= @latest_twSentiment.tw_count %></strong> 件になります。<br><br>
+                      またそのツイート内容の好感度スコアは <strong><%= @latest_twSentiment.score %></strong> 点になります。
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>関心分析</strong></td>
+                  <td>
+                    <strong>用途: </strong>
+                    MusicCircleを使用しているユーザーがどういったものに関心があるかを知るきっかけとなります。<br>
+                    <strong>説明: </strong>
+                    ハッシュタグ「#MusicCircleTest01」で呟かれた今週中のツイートの中で、頻出する単語があるか、その単語がどのくらい重要な文脈で使用されたかを順位付けして5位までまとめています。
+                   「関心度」は　1.0　に値が近くなるほど、ユーザーの関心が高いことを示しています。
+                  </td>
+                  <td>
+                    <% if @latest_twRelatedWords.nil? %>
+                      まだレポートは作成されていません
+                    <% else %>
+                      <% @latest_twRelatedWords.each_with_index do |relatedWord, i|%>
+                        <%= i + 1 %> 位:<strong><%= relatedWord.name %></strong>(関心度: <strong><%= relatedWord.salience.round(3) %></strong>) <br>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
-  <!-- 一週間の新機会員数/新規投稿数の集計 -->
-
-  <!-- 一ヶ月の新機会員数/新規投稿数の集計 -->
-  <div id="chartsMonth" class="section displayNone">
-    <h4>Last 30 days</h4>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active" role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user2"  role="tab" class="chart-icons">
-          <h6>登録者数</h6>
-        </a>
-      </li>
-      <li role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag2" role="tab" class="chart-icons">
-          <h6>投稿数</h6>
-        </a>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active tab-form" id="tab-user2" role="tabpane1">
-        <h5>　　新規登録者数(/月間)</h5>
-        <%= line_chart @endusersMonth, width: "500px", height: "300px" %>
-      </div>
-      <div class="tab-pane tab-form" id="tab-tag2" role="tabpanel">
-        <h5>　　新規投稿数(/月間)</h5>
-        <%= line_chart @postsMonth, width: "500px", height: "300px" %>
-      </div>
-    </div>
-  </div>
-  <!-- 一ヶ月の新機会員数/新規投稿数の集計 -->
-
-  <!-- 一年間の新機会員数/新規投稿数の集計 -->
-  <div id="chartsYear" class="section displayNone">
-    <h4>Last 1 yaer</h4>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active" role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-user3"  role="tab" class="chart-icons">
-          <h6>登録者数</h6>
-        </a>
-      </li>
-      <li role="presentation">
-        <a aria-controls="tab_user" data-toggle="tab" href="#tab-tag3" role="tab" class="chart-icons">
-          <h6>投稿数</h6>
-        </a>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active tab-form" id="tab-user3" role="tabpane1">
-        <h5>　　新規登録者数(/年間)</h5>
-        <%= line_chart @endusersYear, width: "500px", height: "300px" %>
-      </div>
-      <div class="tab-pane tab-form" id="tab-tag3" role="tabpanel">
-        <h5>　　新規投稿数(/年間)</h5>
-        <%= line_chart @postsYear, width: "500px", height: "300px" %>
-      </div>
-    </div>
-  </div>
-  <!-- 一年間の新機会員数/新規投稿数の集計 -->
-
 </div>
-<!-- 登録者と投稿数の集計部分ここまで -->
-
-<!-- 注意対象ユーザーの一覧 -->
-<div class="attentionTargetUsersIndex bg-lightgray">
-  <h2>注意対象ユーザー一覧</h2>
-  <br>
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">ユーザー名</th>
-        <th scope="col">ユーザースコア</th>
-        <th scope="col">直近の投稿内容</th>
-        <th scope="col">強制退会させる</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @attentionTargetUsers.each do |atu|%>
-      <tr>
-        <th scope="row">1</th>
-        <td><%= atu.name %></td>
-        <td><%= atu.score %></td>
-        <td><%= link_to atu.posts.last.body.truncate(12), public_post_path(atu.posts.last.id), class: ""%></td>
-        <td><%= link_to "退会処理", admins_enduser_path(atu.id), method: :delete, class: "btn btn-danger", data: { confirm: '選択したユーザーを強制的に退会させます。よろしいですか？' }%></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<!-- 注意対象ユーザーの一覧 ここまで　-->

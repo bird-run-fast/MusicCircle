@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :endusers, only: [:destroy]
     resources :batches, only: [:index]
     get "batches/score" => "batches#score"
+    get "batches/entities" => "batches#entities"
     resources :charts, only: [:index]
   end
 
