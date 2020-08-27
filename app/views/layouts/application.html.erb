@@ -23,9 +23,9 @@
                 <!-- サインインしてる場合のheader部分 -->
                 <% if admin_signed_in? %>
                   <li><%= link_to " 募集検索", public_searches_index_path,class:"glyphicon glyphicon-search search nav-items" %></li>
-                  <li><%= link_to "バッチ" , admins_batches_path, class:"nav-items" %></li>
-                  <li><%= link_to "統計" , admins_charts_path, class:"nav-items" %></li>
-                  <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete , class:"nav-items" %></li>
+                  <li><%= link_to " バッチ" , admins_batches_path, class:"glyphicon glyphicon-circle-arrow-right nav-items" %></li>
+                  <li><%= link_to " 統計" , admins_charts_path, class:"glyphicon glyphicon-signal nav-items" %></li>
+                  <li><%= link_to " ログアウト", destroy_admin_session_path, method: :delete , class:"glyphicon glyphicon-edit nav-items" %></li>
                 <% end %>
 
                 <% if enduser_signed_in? %>

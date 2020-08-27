@@ -1,0 +1,3 @@
+class TwSentiment < ApplicationRecord
+  
+end

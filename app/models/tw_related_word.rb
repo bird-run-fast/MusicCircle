@@ -1,0 +1,2 @@
+class TwRelatedWord < ApplicationRecord
+end
