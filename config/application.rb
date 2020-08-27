@@ -12,6 +12,7 @@ module MusicCircle
     config.load_defaults 5.2
     config.paths.add 'lib', eager_load: true
     config.autoload_paths += Dir["#{config.root}/lib"]
+    puts config.autoload_paths
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

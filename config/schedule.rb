@@ -24,5 +24,6 @@ set :environment, :development
 set :runner_command, "rails runner"
 every 1.month do
   runner "Batch::Score.score"
+  runner "Batch::Entities.entities"
 end
 env :PATH, ENV['PATH']

@@ -1,7 +1,4 @@
 require "twitter"
-include Constants
-
-# ENV["SSL_CERT_FILE"] = <PEM_PATH>
 
 class TwitterClient
 
@@ -55,8 +52,8 @@ class TwitterClient
   end
 
   # 指定ワードを検索。param:countは件数
-  def search(word, count)
-    @client.search(word).take(count).each do |tweet|
+  def search(tag, count)
+    @client.search("##{tag}", lang: "ja", result_type: "recent").take(count).each do |tweet|
       tweet
     end
   end

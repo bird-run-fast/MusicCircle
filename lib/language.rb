@@ -24,7 +24,7 @@ module Language
       request = Net::HTTP::Post.new(uri.request_uri)
       # request(及びレスポンス)の形をjson形式で受け渡しをする設定
       request['Content-Type'] = 'application/json'
-      # リクエストを送った結果が、responseになって帰ってくる
+      # リクエストを送った結果が、responseに格納されて帰ってくる
       response = https.request(request, params)
       # p JSON.parse(response.body)
       # APIレスポンス出力
