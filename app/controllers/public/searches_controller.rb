@@ -15,15 +15,10 @@ class Public::SearchesController < ApplicationController
       @word = params[:searchTag]
       # @tagsは検索ワードに部分一致したタグのIDを配列で取得している。
       @tags = search_tag(@word)
-      # postsテーブルとpostTagsテーブルをjoin(内部結合)した後、結合後のテーブルに対して、検索条件と一致するタグ(@tags)と紐づくPostを取得している。
+      # 学習メモ: postsテーブルとpostTagsテーブルをjoin(内部結合)した後、結合後のテーブルに対して、検索条件と一致するタグ(@tags)と紐づくPostを取得している。
       # joinを使った場合のwhereについて、結合した親テーブル(Posts)のカラムで検索する場合は普通のwhere文で検索できる。子テーブル(post_tags)のカラムで検索する場合は カラム名の前にテーブル名をつけて、""で囲ってあげる必要がある。
       # where内の(?)はワイルドカードと呼ばれ、第二引数以降に指定た値を代入する記述。今回はで言えばpost_tags.tag_id in (@tags)が実行されてる。@tagsが複数でも対応可能でめちゃ便利な記述方法。
       @posts = Post.joins(:post_tags).where("post_tags.tag_id in (?)",@tags).includes([:tags,:enduser])
-
-      # @tags.each do |tag|
-      #   @tempPosts = tag.posts
-      #   @posts += @tempPosts.includes([:post_tags, :tags, :enduser])
-      # end
     end
   end
 
